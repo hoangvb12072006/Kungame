@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoangkun Game Center</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i> <span>HOANGKUN</span>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><i class="fas fa-home"></i> Trang chủ</li>
+                <li><i class="fas fa-fire"></i> Xu hướng</li>
+                <li><i class="fas fa-plus"></i> Mới nhất</li>
+                <hr>
+                <li><i class="fas fa-crosshairs"></i> Bắn súng</li>
+                <li><i class="fas fa-car"></i> Đua xe</li>
+                <li><i class="fas fa-ghost"></i> Kinh dị</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <header class="top-bar">
+            <input type="text" placeholder="Tìm kiếm trò chơi...">
+            <div class="user-info">
+                <i class="fas fa-bell"></i>
+                <div class="avatar"></div>
+            </div>
+        </header>
+
+        <section class="game-section">
+            <h2>Tiếp tục chơi</h2>
+            <div class="game-grid mini">
+                <div class="card" onclick="playGame('LINK_GAME_1')"><img src="thumb1.jpg"></div>
+                <div class="card" onclick="playGame('LINK_GAME_2')"><img src="thumb2.jpg"></div>
+                </div>
+
+            <h2>Trò chơi nổi bật</h2>
+            <div class="game-grid large">
+                <div class="card-large" onclick="playGame('LINK_GAME_3')">
+                    <img src="banner1.jpg">
+                    <div class="badge">HOT</div>
+                </div>
+                <div class="card-large" onclick="playGame('LINK_GAME_4')">
+                    <img src="banner2.jpg">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="gameOverlay" class="overlay">
+        <div class="modal">
+            <span class="close-btn" onclick="closeGame()">&times;</span>
+            <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
