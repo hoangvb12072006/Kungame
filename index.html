@@ -848,33 +848,33 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
        function showGameInterface(url, title) {
     // 1. Dữ liệu chi tiết từng game (Bạn có thể thêm game vào đây)
-    const gameData = {
-        'Combat Online': {
-            img: 'https://images.crazygames.com/games/combat-online/cover-1591004245642.png',
-            desc: 'Trò chơi bắn súng góc nhìn thứ nhất (FPS) đầy kịch tính với nhiều chế độ chơi và bản đồ đa dạng.',
-            dev: 'NadGames',
-            tags: ['Hành Động', '3D', 'Bắn Súng']
+   const gameData = {
+        '1v1.LOL': {
+            img: 'https://picsum.photos/seed/1v1/800/400',
+            desc: 'Trò chơi bắn súng sinh tồn góc nhìn thứ ba kết hợp xây dựng chiến thuật siêu cuốn!',
+            dev: 'JustPlay.LOL',
+            tags: ['Hành Động', '3D', 'Bắn Súng', 'Sinh Tồn']
         },
         'Moto X3M': {
-            img: 'https://images.crazygames.com/games/moto-x3m/cover-1583153573030.jpg',
+            img: 'https://picsum.photos/seed/moto/400/300',
             desc: 'Thực hiện những cú nhào lộn mạo hiểm trên chiếc mô tô địa hình qua hàng chục cấp độ đầy thử thách.',
             dev: 'MadPuffers',
             tags: ['Đua Xe', 'Vật Lý', 'Mạo Hiểm']
         },
-        'Bloxd.io': {
-            img: 'https://images.crazygames.com/bloxdhop-io/20230818090748/bloxdhop-io-cover',
-            desc: 'Khám phá thế giới khối vuông kỳ ảo, xây dựng và chiến đấu trong môi trường multiplayer rộng lớn.',
-            dev: 'Arthur',
-            tags: ['.io', 'Xây Dựng', 'Minecraft']
+        'Smash Karts': {
+            img: 'https://picsum.photos/seed/karts/800/400',
+            desc: 'Lái xe kart và nhặt vũ khí để tiêu diệt đối thủ trong đấu trường multiplayer hỗn loạn.',
+            dev: 'Tall Team',
+            tags: ['.io', 'Đua xe', 'Bắn súng']
         },
         'Subway Surfers': {
-            img: 'https://images.crazygames.com/games/subway-surfers/cover-1663162791834.png',
+            img: 'https://picsum.photos/seed/subway/400/300',
             desc: 'Chạy trốn khỏi lão bảo vệ khó tính, né tránh tàu hỏa và thu thập tiền vàng trên những đường ray rực rỡ.',
             dev: 'SYBO Games',
             tags: ['Chạy Duy Trì', 'Vui Nhộn', 'Kỹ Năng']
         }
     };
-
+           
     // 2. Các lệnh hiển thị giao diện cũ
     const loader = document.getElementById('game-loader');
     if(loader) { loader.style.opacity = '1'; loader.style.pointerEvents = 'auto'; }
