@@ -260,6 +260,60 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             font-size: 24px; /* Chữ to hơn cho ô game lớn */
             padding-top: 50px;
         }
+
+        /* ==========================================================================
+           14. HIỆU ỨNG LOADING GAME & KHUNG THÔNG TIN BÊN DƯỚI
+           ========================================================================== */
+        .iframe-container {
+            position: relative; /* Thêm cái này để khóa màn hình loading ở bên trong */
+        }
+
+        /* Màn hình đen che iframe lúc đang tải */
+        .game-loader {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--black-90);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease; /* Hiệu ứng mờ dần khi tải xong */
+        }
+
+        /* Logo đập như nhịp tim và phát sáng */
+        .loader-logo-svg {
+            animation: pulse-glow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.9); opacity: 0.7; filter: drop-shadow(0 0 10px rgba(104, 66, 255, 0.4)); }
+            100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(104, 66, 255, 1)); }
+        }
+
+        /* Khung thông tin nằm dưới Toolbar */
+        .game-bottom-frame {
+            margin-top: 15px;
+            height: 100px;
+            background: var(--black-80);
+            border-radius: 12px;
+            border: 1px solid var(--black-60);
+            display: flex;
+            align-items: flex-end;
+            padding: 15px 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Chữ điều hướng (Breadcrumbs) màu tím */
+        .game-bottom-frame p {
+            color: var(--brand-100);
+            font-size: 13px;
+            font-weight: 700;
+            margin: 0;
+            cursor: pointer;
+        }
+        .game-bottom-frame p:hover {
+            color: var(--brand-80);
+        }
         
     </style>
 </head>
@@ -445,26 +499,62 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             
         </section>
 
-        <section id="player-section" style="display: none;">
+      <section id="player-section" style="display: none;">
             <div class="player-layout">
+                
                 <div class="main-game-area">
                     <div class="iframe-container">
-                        <iframe id="gameFrame" src=""></iframe>
+                        <div id="game-loader" class="game-loader">
+                            <svg class="loader-logo-svg" viewBox="0 0 100 100" width="64" height="64">
+                                <rect width="100" height="100" rx="25" fill="var(--brand-100)"/>
+                                <path d="M 23 38 h 6 v -6 h 6 v 6 h 6 v 6 h -6 v 6 h -6 v -6 h -6 z" fill="#fff"/>
+                                <circle cx="63" cy="37" r="4.5" fill="#fff"/>
+                                <circle cx="75" cy="45" r="4.5" fill="#fff"/>
+                                <path d="M 25 65 Q 50 85 75 65" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="transparent"/>
+                            </svg>
+                        </div>
+                        
+                        <iframe id="gameFrame" src="" allowfullscreen onload="hideLoader()"></iframe>
                     </div>
+                    
                     <div class="game-toolbar">
                         <div class="game-title">
-                            <i class="fas fa-gamepad" style="color: var(--brand-100);"></i>
+                            <img src="https://picsum.photos/50/50?random=99" style="width: 32px; height: 32px; border-radius: 8px;">
                             <span id="currentGameTitle">Đang tải...</span>
                         </div>
                         <div class="game-actions">
-                            <button class="action-icon-btn"><i class="fas fa-expand"></i></button>
+                            <button class="action-btn"><i class="fas fa-thumbs-up"></i> 130N</button>
+                            <button class="action-icon-btn"><i class="fas fa-thumbs-down"></i></button>
+                            <button class="action-icon-btn"><i class="fas fa-heart"></i></button>
                             <button class="action-icon-btn"><i class="fas fa-share-alt"></i></button>
-                            <button class="action-btn btn-exit" onclick="goHome()">
-                                <i class="fas fa-times"></i> Thoát Game
-                            </button>
+                            <button class="action-icon-btn"><i class="fas fa-mobile-alt"></i></button>
+                            <button class="action-icon-btn" onclick="goHome()"><i class="fas fa-compress"></i></button>
                         </div>
                     </div>
+
+                    <div class="game-bottom-frame">
+                        <p>Trò Chơi > Hành Động > Phiêu Lưu > <span id="breadcrumbTitle">Tên Game</span></p>
+                    </div>
                 </div>
+
+                <div class="suggested-sidebar">
+                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Veck.io')">
+                        <img src="https://picsum.photos/320/180?random=20" alt="Game">
+                    </div>
+                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Dig Out')">
+                        <img src="https://picsum.photos/320/180?random=21" alt="Game">
+                    </div>
+                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Survive')">
+                        <img src="https://picsum.photos/320/180?random=22" alt="Game">
+                    </div>
+                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Monkey')">
+                        <img src="https://picsum.photos/320/180?random=23" alt="Game">
+                    </div>
+                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Miniblox')">
+                        <img src="https://picsum.photos/320/180?random=24" alt="Game">
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -484,6 +574,51 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             document.getElementById('gameFrame').src = url;
             document.getElementById('currentGameTitle').innerText = title;
             window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            // 1. Phóng to Sidebar
+            document.getElementById('main-sidebar').classList.remove('collapsed');
+            document.getElementById('main-content').classList.remove('expanded');
+
+            // 2. Hiện lại trang chủ
+            document.getElementById('home-section').style.display = 'block';
+            document.getElementById('player-section').style.display = 'none';
+
+            // 3. Tắt Game
+            document.getElementById('gameFrame').src = '';
+        }
+    </script>
+    <script>
+        function playGame(url, title) {
+            // 1. Hiển thị Logo Loading và chặn click vào game
+            const loader = document.getElementById('game-loader');
+            loader.style.opacity = '1';
+            loader.style.pointerEvents = 'auto';
+
+            // 2. Thu nhỏ Sidebar
+            document.getElementById('main-sidebar').classList.add('collapsed');
+            document.getElementById('main-content').classList.add('expanded');
+
+            // 3. Đổi giao diện
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('player-section').style.display = 'block';
+
+            // 4. Load Game và cập nhật tên
+            document.getElementById('gameFrame').src = url;
+            document.getElementById('currentGameTitle').innerText = title;
+            document.getElementById('breadcrumbTitle').innerText = title; // Cập nhật tên ở khung dưới
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Hàm này sẽ tự động chạy khi iframe tải xong game
+        function hideLoader() {
+            const loader = document.getElementById('game-loader');
+            if(loader) {
+                loader.style.opacity = '0'; // Mờ dần
+                loader.style.pointerEvents = 'none'; // Cho phép click xuyên qua vào game
+            }
         }
 
         function goHome() {
