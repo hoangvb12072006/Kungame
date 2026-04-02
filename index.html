@@ -22,6 +22,8 @@
                 <li><i class="fas fa-crosshairs"></i> Bắn súng</li>
                 <li><i class="fas fa-car"></i> Đua xe</li>
                 <li><i class="fas fa-ghost"></i> Kinh dị</li>
+                <li><i class="fas fa-chess-knight"></i> Chiến thuật</li>
+                <li><i class="fas fa-futbol"></i> Thể thao</li>
             </ul>
         </nav>
     </aside>
@@ -31,25 +33,53 @@
             <input type="text" placeholder="Tìm kiếm trò chơi...">
             <div class="user-info">
                 <i class="fas fa-bell"></i>
-                <div class="avatar"></div>
+                <div class="avatar" style="width: 35px; height: 35px; background: #5c3cfc; border-radius: 50%;"></div>
             </div>
         </header>
 
         <section class="game-section">
             <h2>Tiếp tục chơi</h2>
             <div class="game-grid mini">
-                <div class="card" onclick="playGame('LINK_GAME_1')"><img src="thumb1.jpg"></div>
-                <div class="card" onclick="playGame('LINK_GAME_2')"><img src="thumb2.jpg"></div>
+                <div class="card" onclick="playGame('https://hoangvb12072006.github.io/Kungame/')">
+                    <img src="https://placehold.co/150x150/5c3cfc/FFF?text=Kungame" alt="Kungame">
                 </div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/e74c3c/FFF?text=Bắn+Súng" alt="Game 2"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/2ecc71/FFF?text=Đua+Xe" alt="Game 3"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/f1c40f/FFF?text=Giải+Đố" alt="Game 4"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/9b59b6/FFF?text=Sinh+Tồn" alt="Game 5"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/34495e/FFF?text=Kinh+Dị" alt="Game 6"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/e67e22/FFF?text=Đối+Kháng" alt="Game 7"></div>
+                <div class="card" onclick="playGame('#')"><img src="https://placehold.co/150x150/1abc9c/FFF?text=Thể+Thao" alt="Game 8"></div>
+            </div>
 
             <h2>Trò chơi nổi bật</h2>
             <div class="game-grid large">
-                <div class="card-large" onclick="playGame('LINK_GAME_3')">
-                    <img src="banner1.jpg">
-                    <div class="badge">HOT</div>
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/ff4757/FFF?text=Game+Hot+1" alt="Hot Game 1">
+                    <div class="badge" style="position: absolute; top: 10px; left: 10px; background: red; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: bold;">HOT</div>
                 </div>
-                <div class="card-large" onclick="playGame('LINK_GAME_4')">
-                    <img src="banner2.jpg">
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/1e90ff/FFF?text=Game+Hot+2" alt="Hot Game 2">
+                </div>
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/2ed573/FFF?text=Game+Hot+3" alt="Hot Game 3">
+                </div>
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/ffa502/FFF?text=Game+Hot+4" alt="Hot Game 4">
+                    <div class="badge" style="position: absolute; top: 10px; left: 10px; background: #5c3cfc; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: bold;">NEW</div>
+                </div>
+            </div>
+
+            <h2>Trò chơi mới cập nhật</h2>
+            <div class="game-grid large">
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/3742fa/FFF?text=New+Game+1" alt="New Game 1">
+                </div>
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/ff7f50/FFF?text=New+Game+2" alt="New Game 2">
+                </div>
+                <div class="card-large" onclick="playGame('#')">
+                    <img src="https://placehold.co/300x180/2f3542/FFF?text=New+Game+3" alt="New Game 3">
                 </div>
             </div>
         </section>
