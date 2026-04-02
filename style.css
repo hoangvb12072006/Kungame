@@ -510,3 +510,80 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 .btn-exit:hover { background: var(--alert-60); }
 
 .suggested-sidebar { width: 320px; }
+
+/* ==========================================================================
+   11. RESPONSIVE - TỰ ĐỘNG CO GIÃN THEO MỌI MÀN HÌNH (CHỐNG VỠ GIAO DIỆN)
+   ========================================================================== */
+
+/* Chống tràn thanh cuộn ngang toàn trang */
+body, html {
+    overflow-x: hidden;
+}
+
+.content {
+    max-width: calc(100% - 216px);
+    overflow-x: hidden;
+}
+
+/* 💻 Màn hình Laptop nhỏ & iPad ngang (Dưới 1300px) */
+@media (max-width: 1300px) {
+    .hero-grid {
+        grid-template-columns: repeat(4, 1fr); /* Giảm từ 6 cột xuống 4 cột */
+    }
+    /* Các ô game to sẽ tự động rớt xuống dòng cho vừa màn hình */
+    .search-container {
+        max-width: 350px; /* Thu ngắn ô tìm kiếm 1 chút */
+    }
+}
+
+/* 📱 Màn hình Tablet & Điện thoại xoay ngang (Dưới 992px) */
+@media (max-width: 992px) {
+    .hero-grid {
+        grid-template-columns: repeat(2, 1fr); /* Ép xuống còn 2 cột */
+    }
+    .span-2x2 {
+        grid-column: span 2; /* Ô to chiếm trọn cả 2 cột luôn */
+        grid-row: span 2;
+    }
+    .standard-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Thẻ game nổi bật tự thu nhỏ lại */
+    }
+    .search-container {
+        max-width: 250px;
+    }
+}
+
+/* 📱 Màn hình Điện thoại dọc (Dưới 768px) */
+@media (max-width: 768px) {
+    /* 1. Tự động thu nhỏ thanh menu trái giống khi đang chơi game */
+    .sidebar {
+        width: 76px;
+    }
+    /* Giấu hết chữ và phần liên hệ đi cho đỡ chật */
+    .sidebar span, .sidebar .logo span, .sidebar-footer {
+        display: none !important; 
+    }
+    
+    /* 2. Đẩy nội dung chính giãn ra */
+    .content {
+        margin-left: 76px;
+        width: calc(100% - 76px);
+        max-width: calc(100% - 76px);
+        padding: 15px 20px;
+    }
+    
+    /* 3. Dọn dẹp Top Bar cho gọn gàng trên mobile */
+    .top-bar {
+        padding: 0;
+    }
+    .search-container {
+        display: none; /* Giấu ô tìm kiếm trên mobile */
+    }
+    .user-actions .action-icon-btn {
+        display: none; /* Giấu bớt icon phụ */
+    }
+    .login-btn {
+        padding: 0 15px;
+        font-size: 14px;
+    }
+}
