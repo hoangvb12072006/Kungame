@@ -94,18 +94,32 @@
 
     <main class="content">
         <header class="top-bar">
-            <div class="logo-mobile"><i class="fas fa-gamepad" style="color: #9d4edd;"></i> crazy<br>games</div>
-            <div class="search-box">
-                <input type="text" placeholder="Tìm kiếm trò chơi và danh mục">
-                <i class="fas fa-search search-icon"></i>
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm trò chơi và danh mục">
+            <div class="search-icon-wrapper">
+                <i class="fas fa-search"></i>
             </div>
-            <div class="user-actions">
-                <div class="icon-btn"><i class="fas fa-bell"></i><span class="noti-dot">1</span></div>
-                <div class="icon-btn"><i class="fas fa-heart"></i></div>
-                <div class="icon-btn"><i class="fas fa-user"></i></div>
-                <button class="login-btn">Đăng nhập</button>
-            </div>
-        </header>
+        </div>
+    </div>
+
+    <div class="user-actions">
+        <div class="action-icon-btn notification-btn">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">1</span>
+        </div>
+        
+        <div class="action-icon-btn">
+            <i class="fas fa-heart"></i>
+        </div>
+        
+        <div class="action-icon-btn">
+            <i class="fas fa-user"></i>
+        </div>
+
+        <button class="login-btn animated-green-gradient">Đăng nhập</button>
+    </div>
+</header>
 
         <section class="category-slider">
             <div class="cat-card" style="background: linear-gradient(135deg, #183e3c, #165646);"><span>Trực tuyến với<br>bạn bè</span></div>
