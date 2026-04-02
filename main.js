@@ -1,15 +1,41 @@
-function playGame(url) {
-    const overlay = document.getElementById('gameOverlay');
-    const frame = document.getElementById('gameFrame');
+// Hàm mở màn hình chơi game
+function playGame(url, title = 'Đang chơi...') {
+    // 1. Ẩn phần trang chủ đi
+    document.getElementById('home-section').style.display = 'none';
     
-    frame.src = url; // Gán link game vào iframe
-    overlay.style.display = 'block';
+    // 2. Hiện khu vực chơi game lên
+    document.getElementById('player-section').style.display = 'block';
+    
+    // 3. Nạp link game vào khung iframe
+    document.getElementById('gameFrame').src = url;
+    
+    // 4. Đổi tên game trên thanh công cụ
+    document.getElementById('currentGameTitle').innerText = title;
+    
+    // 5. Tự động cuộn mượt lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function closeGame() {
-    const overlay = document.getElementById('gameOverlay');
-    const frame = document.getElementById('gameFrame');
+// Hàm quay lại trang chủ (Thay cho closeGame cũ)
+function goHome() {
+    // 1. Hiện lại trang chủ
+    document.getElementById('home-section').style.display = 'block';
     
-    overlay.style.display = 'none';
-    frame.src = ''; // Xóa link để dừng âm thanh game khi đóng
+    // 2. Ẩn khu vực chơi game đi
+    document.getElementById('player-section').style.display = 'none';
+    
+    // 3. Xóa link game để dừng hẳn âm thanh khi đã thoát
+    document.getElementById('gameFrame').src = '';
+}
+
+// Hàm phóng to toàn màn hình (Dành cho nút bấm mở rộng)
+function openFullscreen() {
+    let elem = document.getElementById("gameFrame");
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
 }
