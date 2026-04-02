@@ -13,34 +13,130 @@ body {
     display: flex;
 }
 
-/* Sidebar */
+/* --- SIDEBAR HOÀN THIỆN --- */
 .sidebar {
-    width: 200px;
-    background: var(--sidebar-bg);
+    width: 230px;
+    background: #100a1c; /* Nền tối tệp với màu web */
     height: 100vh;
-    padding: 20px;
     position: fixed;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1a1429;
+    z-index: 100;
 }
 
-.sidebar ul {
+/* Phần đầu sidebar chứa logo */
+.logo-area {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.menu-icon {
+    font-size: 18px;
+    color: #a097b6;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-icon:hover { color: #fff; }
+
+.logo {
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+/* Khu vực danh sách có thể cuộn */
+.sidebar-scroll {
+    flex: 1;
+    overflow-y: auto; /* Tạo thanh cuộn dọc */
+    padding: 0 10px 20px 10px;
+}
+
+/* Tùy chỉnh thanh cuộn cho Sidebar cho đẹp (ẩn đi, chỉ hiện xám mờ) */
+.sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    background: #2a2438;
+    border-radius: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menu-list {
     padding: 0;
     margin: 0;
 }
 
-.sidebar li {
+.menu-list li {
     list-style: none;
-    padding: 12px;
+    padding: 10px 15px;
     cursor: pointer;
     border-radius: 8px;
-    transition: 0.3s;
-    margin-bottom: 5px; /* Tạo khoảng cách giữa các mục */
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #b5a8d5; /* Chữ màu xám tím đặc trưng của CrazyGames */
 }
 
-.sidebar li:hover, .sidebar li.active {
-    background: var(--accent-color);
+/* Căn chỉnh Icon trong danh sách */
+.menu-list li i {
+    width: 24px;
+    font-size: 16px;
+    color: #7b88a8; /* Màu icon xám nhạt */
+    margin-right: 12px;
+    text-align: center;
+    transition: color 0.2s;
 }
 
+.menu-list li:hover {
+    background: #1a1429;
+    color: #fff;
+}
+
+.menu-list li:hover i {
+    color: #fff;
+}
+
+/* Trạng thái đang chọn (Active) */
+.menu-list li.active {
+    background: #291c49; /* Tím nhạt */
+    color: #fff;
+}
+
+.menu-list li.active i {
+    color: #9d4edd; /* Icon tím sáng */
+}
+
+/* Đường kẻ ngang chia cách */
+.divider {
+    border: 0;
+    height: 1px;
+    background: #2a2438;
+    margin: 15px 10px;
+}
+
+/* --- FIX LỖI CONTENT --- */
+/* Cập nhật lại lề của nội dung chính để khớp với chiều rộng mới của sidebar */
+.content {
+    margin-left: 230px; 
+    width: calc(100% - 230px);
+    padding: 30px;
+    box-sizing: border-box;
+}
 /* Main Content */
 .content {
     margin-left: 240px; /* Tránh đè lên Sidebar */
