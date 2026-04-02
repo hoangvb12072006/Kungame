@@ -354,6 +354,66 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
         /* Đoạn văn mô tả */
         .game-description-text { color: var(--white-50); font-size: 15px; font-weight: 400; line-height: 1.6; margin: 0; }
+
+        /* ==========================================================================
+           11. GIAO DIỆN MÀN HÌNH CHƠI GAME & CHI TIẾT (CHUẨN CRAZYGAMES)
+           ========================================================================== */
+        .player-layout { display: flex; gap: 20px; align-items: flex-start; }
+        
+        /* CỘT TRÁI (Chứa Game và Thông tin) */
+        .left-column { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+        
+        /* Box chứa Game (Hộp đen) */
+        .game-player-box { background: var(--black-80); border-radius: 16px; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+        .iframe-container { position: relative; width: 100%; height: 75vh; background: var(--black-90); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        #gameFrame { width: 100%; height: 100%; border: none; }
+        
+        .game-toolbar { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-top: 15px; padding: 12px 20px; background: var(--black-80); border-radius: 12px; width: 100%; box-sizing: border-box; }
+        .game-title { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; color: var(--white-100); white-space: nowrap; }
+        .game-actions { display: flex; flex-direction: row; align-items: center; gap: 8px; flex-wrap: nowrap; }
+        .game-actions .action-btn { background: var(--black-60); border: none; color: var(--white-100); padding: 8px 16px; border-radius: 30px; cursor: pointer; font-size: 14px; font-weight: 800; transition: 0.2s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .game-actions .action-btn:hover { background: var(--black-50); }
+        .game-actions .action-icon-btn { width: 36px; height: 36px; background-color: var(--black-60); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--white-100); cursor: pointer; transition: 0.2s; border: none; font-size: 14px; flex-shrink: 0; }
+        .game-actions .action-icon-btn:hover { background-color: var(--black-50); transform: scale(1.05); }
+
+        /* Màn hình Loading */
+        .game-loader { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--black-90); display: flex; justify-content: center; align-items: center; z-index: 10; transition: opacity 0.5s ease; }
+        .loader-logo-svg { animation: pulse-glow 1s ease-in-out infinite alternate; }
+        @keyframes pulse-glow { 0% { transform: scale(0.9); opacity: 0.7; filter: drop-shadow(0 0 10px rgba(104, 66, 255, 0.4)); } 100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(104, 66, 255, 1)); } }
+
+        /* PHẦN THÔNG TIN CHI TIẾT GAME (Tách ra ngoài hộp đen) */
+        .game-details-container { padding: 0 5px; color: var(--white-100); font-family: var(--font-nunito); }
+        .promo-banner { background: linear-gradient(90deg, #492eb3, #2a1a66); border-radius: 12px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 20px; transition: 0.2s; }
+        .promo-banner:hover { filter: brightness(1.1); }
+        .promo-content { display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 16px; }
+
+        .breadcrumbs { font-size: 13px; color: var(--brand-60); font-weight: 700; margin-bottom: 15px; }
+        .breadcrumbs span { color: var(--white-50); }
+
+        .desc-title { font-size: 28px; font-weight: 900; margin: 0 0 15px 0; }
+        .share-btn-large { background: var(--black-60); border: none; color: var(--white-100); padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; transition: 0.2s; }
+        .share-btn-large:hover { background: var(--black-50); }
+
+        /* Chỉnh lại bảng thông số thẳng tắp */
+        .metadata-grid { display: grid; grid-template-columns: max-content 1fr; row-gap: 12px; column-gap: 20px; font-size: 14px; margin-bottom: 25px; }
+        .meta-label { color: var(--white-30); font-weight: 700; text-transform: capitalize; }
+        .meta-value { color: var(--white-100); font-weight: 700; }
+        .meta-value.purple-text { color: var(--brand-60); cursor: pointer; }
+        .meta-value.purple-text:hover { color: var(--brand-100); }
+        .meta-sub { color: var(--white-30); font-weight: 400; font-size: 12px; margin-left: 5px; }
+
+        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .tag-chip { background: var(--black-60); border: 1px solid var(--black-50); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--white-50); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .tag-chip:hover { border-color: var(--brand-100); color: var(--white-100); }
+        .tag-count { color: var(--brand-60); }
+
+        .game-description-text { color: var(--white-50); font-size: 15px; font-weight: 400; line-height: 1.6; margin: 0; }
+
+        /* CỘT PHẢI (Gợi ý game) */
+        .suggested-sidebar { width: 300px; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+        .suggested-card { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.2s; border: 2px solid transparent; background: var(--black-70); }
+        .suggested-card:hover { border-color: var(--brand-100); transform: scale(1.03); }
+        .suggested-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
     </style>
 </head>
