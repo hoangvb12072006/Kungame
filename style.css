@@ -1,51 +1,173 @@
-/* --- CẤU HÌNH MÀU SẮC TỔNG THỂ --- */
+/* ==========================================================================
+   1. HỆ THỐNG BIẾN MÀU GỐC TỪ CRAZYGAMES
+   ========================================================================== */
 :root {
-    --bg-dark: #100a1c;
-    --sidebar-bg: #150f24;
-    --accent-color: #5c3cfc;
-    --text-color: #ffffff;
+    --brand-0: #fff;
+    --brand-20: #e1d9ff;
+    --brand-30: #d2c6ff;
+    --brand-40: #c3b3ff;
+    --brand-50: #b4a1ff;
+    --brand-60: #a48eff;
+    --brand-70: #957bff;
+    --brand-80: #8668ff;
+    --brand-100: #6842ff;
+    --brand-120: #5335cc;
+    --brand-130: #492eb3;
+    --brand-140: #3e2899;
+    --brand-150: #342180;
+    --brand-160: #2a1a66;
+    --brand-180: #150d33;
+    --brand-200: #07050f;
+    --black-10: #474967;
+    --black-20: #434561;
+    --black-40: #373952;
+    --black-50: #2f3148;
+    --black-60: #28293d;
+    --black-70: #212233;
+    --black-80: #1a1b28;
+    --black-90: #13141e;
+    --black-100: #0c0d14;
+    --white-10: #666a7f;
+    --white-20: #767a8e;
+    --white-30: #878a9e;
+    --white-40: #989bae;
+    --white-50: #aaadbe;
+    --white-60: #bdbfce;
+    --white-70: #d0d2de;
+    --white-80: #e5e6ee;
+    --white-90: #eff0f7;
+    --white-100: #f9faff;
+    --success-100: #4af0a7;
+    --alert-40: #f59ebe;
+    --alert-60: #f16e9d;
+    --alert-100: #e70d5c;
+    --warning-100: #ffac4a;
+    --warning-200: #3c2a16;
+    
+    /* Các biến khung giao diện */
+    --sidebar-width: 200px;
+    --sidebar-collapsed-width: 76px;
+    --header-height: 60px;
+    --base-unit: 8px;
+    --font-nunito: "Nunito", "Nunito Fallback", sans-serif;
 }
 
+/* ==========================================================================
+   2. FONT CHỮ NUNITO GỐC (Trực tiếp từ máy chủ CrazyGames)
+   ========================================================================== */
+@font-face {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2) format("woff2");
+}
+@font-face {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://builds.crazygames.com/portal-web/_next/static/media/3131c862d4942660-s.woff2) format("woff2");
+}
+@font-face {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(https://builds.crazygames.com/portal-web/_next/static/media/e1694c6cb47c173f-s.woff2) format("woff2");
+}
+@font-face {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url(https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2) format("woff2");
+}
+
+/* ==========================================================================
+   3. RESET & CẤU HÌNH HTML/BODY CHUẨN
+   ========================================================================== */
+html.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+html.no-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+html.no-ptr {
+    overscroll-behavior-y: none;
+}
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--bg-dark);
-    color: var(--text-color);
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    background: var(--black-100);
+    color: var(--white-100);
+    font-family: var(--font-nunito);
     display: flex;
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+    font-weight: 700;
 }
 
-/* --- 1. SIDEBAR THU GỌN (MENU BÊN TRÁI) - ĐÃ FIX LỖI CHỮ --- */
+/* ==========================================================================
+   4. HIỆU ỨNG ANIMATION (Dùng cho Nút bấm & Logo)
+   ========================================================================== */
+@keyframes scroll-gradient {
+    0% { background-position: 0 50%; }
+    100% { background-position: 350% 0; }
+}
+
+@keyframes logo-buzz {
+    50% { transform: translateX(1.5px) rotate(2deg); }
+    100% { transform: translateX(-1.5px) rotate(-2deg); }
+}
+
+/* Hiệu ứng nút bấm gradient chuẩn CrazyGames */
+.animated-green-gradient {
+    color: var(--black-100);
+    background: linear-gradient(90deg, #49f3c3, #64f17e, #49f3c3);
+    background-size: 700% 100%;
+    animation: scroll-gradient 3s linear infinite;
+    transition: filter 0.2s ease, transform 0.2s ease;
+    border: none;
+    font-weight: 800;
+}
+.animated-green-gradient:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   5. CẤU TRÚC GIAO DIỆN (SIDEBAR THU GỌN)
+   ========================================================================== */
 .sidebar.collapsed { 
-    width: 70px; 
-    background: var(--sidebar-bg); 
+    width: var(--sidebar-collapsed-width); 
+    background: var(--black-90); 
     height: 100vh; 
     position: fixed; 
     display: flex; 
     flex-direction: column; 
     z-index: 100; 
     align-items: center; 
-    border-right: 1px solid #1a1429; 
-    overflow-x: hidden; /* Cắt bỏ mọi thứ lòi ra ngoài chiều ngang */
-}
-
-/* Ẩn chữ HOANGKUN cũ ở góc trên trái đi, chỉ giữ nút 3 gạch */
-.sidebar .logo { 
-    display: none !important; 
+    border-right: 1px solid var(--black-60); 
+    overflow-x: hidden; 
 }
 
 .logo-area { 
-    height: 70px; 
+    height: var(--header-height); 
     display: flex; 
     align-items: center; 
     justify-content: center; 
     width: 100%; 
 }
 
-.menu-icon { 
-    font-size: 20px; 
-    color: #fff; 
-    cursor: pointer; 
-}
+.menu-icon { font-size: 24px; color: var(--white-100); cursor: pointer; }
+.sidebar .logo { display: none !important; }
 
 .sidebar-scroll { 
     width: 100%; 
@@ -55,57 +177,40 @@ body {
 }
 .sidebar-scroll:hover { overflow-y: auto; }
 .sidebar-scroll::-webkit-scrollbar { width: 4px; }
-.sidebar-scroll::-webkit-scrollbar-thumb { background: #333; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: var(--black-40); border-radius: 4px; }
 
-.menu-list { 
-    padding: 0; 
-    margin: 0; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-}
+.menu-list { padding: 0; margin: 0; display: flex; flex-direction: column; align-items: center; }
 
 .menu-list li { 
     list-style: none; 
-    width: 45px; 
-    height: 45px; 
+    width: 48px; 
+    height: 48px; 
     border-radius: 12px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
     margin-bottom: 8px; 
     cursor: pointer; 
-    transition: 0.2s; 
-
-    /* DÒNG NÀY QUAN TRỌNG: Ép mất chữ, biến chữ thành vô hình */
+    transition: 0.2s ease; 
     font-size: 0px !important; 
     color: transparent !important;
 }
 
-.menu-list li i { 
-    font-size: 18px !important; /* Trả lại kích thước chuẩn cho icon */
-    color: #a097b6 !important; /* Phục hồi màu icon */
-}
+.menu-list li i { font-size: 20px !important; color: var(--white-50) !important; transition: 0.2s; }
+.menu-list li:hover { background: var(--black-60); }
+.menu-list li:hover i { color: var(--white-100) !important; transform: scale(1.1); }
+.menu-list li.active { background: var(--black-50); border-left: 3px solid var(--brand-100); border-radius: 8px; }
+.menu-list li.active i { color: var(--brand-100) !important; }
 
-.menu-list li:hover { background: #2a2438; }
-.menu-list li:hover i { color: #fff !important; }
+.divider { border: 0; height: 1px; background: var(--black-60); margin: 15px auto; width: 40px; }
 
-.menu-list li.active { background: #291c49; }
-.menu-list li.active i { color: #9d4edd !important; }
-
-.divider { 
-    border: 0; 
-    height: 1px; 
-    background: #2a2438; 
-    margin: 15px auto; 
-    width: 40px; 
-}
-
-/* --- 2. MAIN CONTENT & TOP BAR --- */
+/* ==========================================================================
+   6. MAIN CONTENT & TOP BAR
+   ========================================================================== */
 .content { 
-    margin-left: 70px; 
-    width: calc(100% - 70px); 
-    padding: 20px 40px; 
+    margin-left: var(--sidebar-collapsed-width); 
+    width: calc(100% - var(--sidebar-collapsed-width)); 
+    padding: 20px 30px; 
     box-sizing: border-box; 
 }
 
@@ -114,196 +219,107 @@ body {
     justify-content: space-between; 
     align-items: center; 
     margin-bottom: 30px; 
+    height: var(--header-height); 
 }
-.logo-mobile { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    font-size: 18px; 
-    font-weight: bold; 
-    line-height: 1.2; 
-}
-.search-box { position: relative; width: 450px; }
+
+.logo-mobile { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 900; }
+.logo-mobile i { animation: logo-buzz 2s linear infinite; color: var(--brand-100); } 
+
+.search-box { position: relative; width: 400px; }
 .search-box input { 
-    width: 100%; 
-    padding: 12px 20px; 
-    padding-right: 40px; 
-    border-radius: 25px; 
-    border: none; 
-    background: #251d3a; 
-    color: white; 
-    outline: none; 
-    box-sizing: border-box; 
-    font-size: 15px; 
+    width: 100%; padding: 12px 20px; padding-right: 40px; border-radius: 25px; border: 2px solid transparent; 
+    background: var(--black-60); color: var(--white-100); outline: none; font-size: 15px; font-weight: 700; font-family: var(--font-nunito); transition: 0.2s;
 }
-.search-icon { 
-    position: absolute; 
-    right: 15px; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    color: #a097b6; 
-}
+.search-box input::placeholder { color: var(--white-50); }
+.search-box input:focus { border-color: var(--brand-100); background: var(--black-50); }
+.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--white-50); }
 
 .user-actions { display: flex; align-items: center; gap: 15px; }
 .icon-btn { 
-    width: 40px; 
-    height: 40px; 
-    background: #251d3a; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    cursor: pointer; 
-    position: relative; 
-    transition: 0.2s; 
-    color: #a097b6; 
+    width: 40px; height: 40px; background: var(--black-60); border-radius: 50%; display: flex; 
+    justify-content: center; align-items: center; cursor: pointer; position: relative; transition: 0.2s; color: var(--white-50); 
 }
-.icon-btn:hover { background: #3a2e5d; color: #fff; }
+.icon-btn:hover { background: var(--black-50); color: var(--white-100); }
 .noti-dot { 
-    position: absolute; 
-    top: -2px; 
-    right: -2px; 
-    background: #ff4757; 
-    color: white; 
-    font-size: 10px; 
-    width: 16px; 
-    height: 16px; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    font-weight: bold; 
+    position: absolute; top: -2px; right: -2px; background: var(--alert-100); color: var(--white-100); 
+    font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 900; 
 }
+
+/* Kế thừa class nút bấm của bạn */
 .login-btn { 
-    background: #6a42fa; 
-    color: white; 
-    border: none; 
-    padding: 10px 24px; 
-    border-radius: 20px; 
-    font-weight: bold; 
-    font-size: 15px; 
-    cursor: pointer; 
-    transition: 0.2s; 
+    background: var(--brand-100); color: var(--white-100); border: none; padding: 10px 24px; 
+    border-radius: 30px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.2s; 
 }
-.login-btn:hover { background: #5c3cfc; }
+.login-btn:hover { background: var(--brand-80); }
 
-/* --- 3. THANH TRƯỢT DANH MỤC --- */
-.category-slider { 
-    display: flex; 
-    gap: 15px; 
-    overflow-x: auto; 
-    padding-bottom: 15px; 
-    margin-bottom: 30px; 
-}
-.category-slider::-webkit-scrollbar { height: 6px; }
-.category-slider::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+/* ==========================================================================
+   7. THANH TRƯỢT DANH MỤC
+   ========================================================================== */
+.category-slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 30px; scrollbar-width: none; }
+.category-slider::-webkit-scrollbar { display: none; }
 .cat-card { 
-    min-width: 240px; 
-    height: 90px; 
-    border-radius: 12px; 
-    padding: 15px; 
-    box-sizing: border-box; 
-    display: flex; 
-    align-items: flex-end; 
-    font-weight: bold; 
-    font-size: 15px; 
-    cursor: pointer; 
-    transition: transform 0.2s; 
-    box-shadow: inset 0 -30px 40px rgba(0,0,0,0.3); 
+    min-width: 200px; height: 80px; border-radius: 12px; padding: 15px; box-sizing: border-box; 
+    display: flex; align-items: flex-end; font-weight: 900; font-size: 16px; cursor: pointer; 
+    transition: transform 0.2s; box-shadow: inset 0 -30px 40px rgba(0,0,0,0.3); border: 2px solid transparent;
 }
-.cat-card:hover { transform: translateY(-4px); }
+.cat-card:hover { transform: translateY(-4px); border-color: var(--white-50); }
 
-/* --- 4. LƯỚI GAME --- */
-h2 { font-size: 18px; margin-bottom: 15px; font-weight: 600; }
+/* ==========================================================================
+   8. LƯỚI GAME HERO & THẺ GAME
+   ========================================================================== */
+h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-100); }
 
-.hero-grid { 
-    display: grid; 
-    grid-template-columns: repeat(6, 1fr); 
-    grid-auto-rows: 150px; 
-    gap: 15px; 
-    margin-bottom: 40px; 
-}
-.hero-card { 
-    background: #2a2438; 
-    border-radius: 15px; 
-    overflow: hidden; 
-    position: relative; 
-    cursor: pointer; 
-    transition: all 0.2s; 
-}
-.hero-card:hover { 
-    transform: scale(1.02); 
-    z-index: 10; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
-    outline: 3px solid var(--accent-color); 
-}
-.hero-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 150px; gap: 15px; margin-bottom: 40px; }
 .span-2x2 { grid-column: span 2; grid-row: span 2; }
 .span-1x1 { grid-column: span 1; grid-row: span 1; }
 
-.standard-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-    gap: 15px; 
-    margin-bottom: 40px; 
-}
-.card { 
-    height: 130px; 
-    background: #2a2438; 
-    border-radius: 15px; 
-    overflow: hidden; 
-    position: relative; 
-    cursor: pointer; 
-    transition: transform 0.2s; 
-}
-.card:hover { 
-    transform: scale(1.05); 
-    z-index: 5; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
-}
-.card img { width: 100%; height: 100%; object-fit: cover; }
+.standard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 40px; }
 
-/* Tem nhãn (Badges) */
+.card, .hero-card { 
+    background: var(--black-70); border-radius: 16px; overflow: hidden; position: relative; 
+    cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; 
+}
+.card { height: 130px; }
+
+.card:hover, .hero-card:hover { 
+    transform: scale(1.03); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
+    border-color: var(--brand-100); 
+}
+.card img, .hero-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Tem nhãn (Badges) giữ nguyên chuẩn màu bạn đưa */
 .badge { 
-    position: absolute; 
-    top: 8px; left: 8px; 
-    padding: 4px 8px; 
-    border-radius: 6px; 
-    font-size: 12px; 
-    font-weight: bold; 
-    display: flex; 
-    align-items: center; 
-    gap: 5px; 
-    color: white; 
-    z-index: 2; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5); 
+    position: absolute; top: 8px; left: 8px; padding: 4px 8px; border-radius: 8px; 
+    font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 5px; 
+    color: var(--black-100); z-index: 2; box-shadow: 4px 4px 20px 0 rgba(0,0,0,0.5); 
 }
-.badge-top { background: #f1c40f; color: #000; }
-.badge-originals { background: #fff; color: #5c3cfc; }
-.badge-new { background: #e056fd; }
-.badge-updated { background: #00cec9; color: #000; }
-.badge-hot { background: #ff4757; }
+.badge i { font-size: 10px; }
+.badge-top { background: linear-gradient(90deg,#ffc352,#faff9c); }
+.badge-originals { background: var(--white-100); color: var(--brand-100); }
+.badge-new { background: linear-gradient(90deg,#c93dd1,#8a4fff); color: var(--white-100); }
+.badge-updated { background: linear-gradient(90deg,#28c7df,#5082ff); color: var(--white-100);}
+.badge-hot { background: linear-gradient(90deg,#ff2f0f,#ff8b2d); color: var(--white-100); }
 
-/* --- 5. GIAO DIỆN MÀN HÌNH CHƠI GAME --- */
+/* ==========================================================================
+   9. GIAO DIỆN MÀN HÌNH CHƠI GAME
+   ========================================================================== */
 .player-layout { display: flex; gap: 20px; align-items: flex-start; }
-.main-game-area { flex: 1; background: #1a1429; border-radius: 15px; padding: 20px; }
+.main-game-area { flex: 1; background: var(--black-80); border-radius: 16px; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
 .iframe-container { width: 100%; height: 75vh; background: #000; border-radius: 12px; overflow: hidden; }
 #gameFrame { width: 100%; height: 100%; }
-.game-toolbar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #2a2438; }
-.game-title { display: flex; align-items: center; gap: 15px; }
+
+.game-toolbar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--black-60); }
+.game-title { display: flex; align-items: center; gap: 15px; font-weight: 900; font-size: 20px; }
+
 .game-actions { display: flex; gap: 10px; }
 .action-btn { 
-    background: #2a2438; 
-    border: none; 
-    color: white; 
-    padding: 10px 15px; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    font-size: 16px; 
-    transition: 0.2s; 
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
+    background: var(--black-60); border: none; color: var(--white-100); padding: 10px 15px; 
+    border-radius: 30px; cursor: pointer; font-size: 16px; font-weight: 800; transition: 0.2s; 
+    display: flex; align-items: center; gap: 8px; 
 }
-.action-btn:hover { background: var(--accent-color); }
+.action-btn:hover { background: var(--black-50); }
+
+.btn-exit { background: var(--alert-100); }
+.btn-exit:hover { background: var(--alert-60); }
+
 .suggested-sidebar { width: 320px; }
