@@ -14,7 +14,7 @@ body {
     display: flex;
 }
 
-/* --- 1. SIDEBAR THU GỌN (MENU BÊN TRÁI) --- */
+/* --- 1. SIDEBAR THU GỌN (MENU BÊN TRÁI) - ĐÃ FIX LỖI CHỮ --- */
 .sidebar.collapsed { 
     width: 70px; 
     background: var(--sidebar-bg); 
@@ -25,6 +25,12 @@ body {
     z-index: 100; 
     align-items: center; 
     border-right: 1px solid #1a1429; 
+    overflow-x: hidden; /* Cắt bỏ mọi thứ lòi ra ngoài chiều ngang */
+}
+
+/* Ẩn chữ HOANGKUN cũ ở góc trên trái đi, chỉ giữ nút 3 gạch */
+.sidebar .logo { 
+    display: none !important; 
 }
 
 .logo-area { 
@@ -44,6 +50,7 @@ body {
 .sidebar-scroll { 
     width: 100%; 
     overflow-y: hidden; 
+    overflow-x: hidden;
     margin-top: 10px; 
 }
 .sidebar-scroll:hover { overflow-y: auto; }
@@ -57,6 +64,7 @@ body {
     flex-direction: column; 
     align-items: center; 
 }
+
 .menu-list li { 
     list-style: none; 
     width: 45px; 
@@ -67,14 +75,31 @@ body {
     justify-content: center; 
     margin-bottom: 8px; 
     cursor: pointer; 
-    color: #a097b6; 
     transition: 0.2s; 
-}
-.menu-list li i { font-size: 18px; }
-.menu-list li:hover { background: #2a2438; color: #fff; }
-.menu-list li.active { background: #291c49; color: #9d4edd; }
 
-.divider { border: 0; height: 1px; background: #2a2438; margin: 15px 10px; }
+    /* DÒNG NÀY QUAN TRỌNG: Ép mất chữ, biến chữ thành vô hình */
+    font-size: 0px !important; 
+    color: transparent !important;
+}
+
+.menu-list li i { 
+    font-size: 18px !important; /* Trả lại kích thước chuẩn cho icon */
+    color: #a097b6 !important; /* Phục hồi màu icon */
+}
+
+.menu-list li:hover { background: #2a2438; }
+.menu-list li:hover i { color: #fff !important; }
+
+.menu-list li.active { background: #291c49; }
+.menu-list li.active i { color: #9d4edd !important; }
+
+.divider { 
+    border: 0; 
+    height: 1px; 
+    background: #2a2438; 
+    margin: 15px auto; 
+    width: 40px; 
+}
 
 /* --- 2. MAIN CONTENT & TOP BAR --- */
 .content { 
