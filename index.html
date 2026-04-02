@@ -185,18 +185,46 @@
             .login-btn { padding: 0 15px; font-size: 14px; }
         }
 
-        /* ==========================================================================
-   8. THANH TRƯỢT DANH MỤC (FIX LỖI NHẢY LÊN)
+      /* ==========================================================================
+   8. THANH TRƯỢT DANH MỤC (FIX LỖI NHẢY LÊN & THÊM ẢNH 3D)
    ========================================================================== */
 .category-slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 30px; scrollbar-width: none; }
 .category-slider::-webkit-scrollbar { display: none; }
+
 .cat-card { 
     min-width: 200px; height: 80px; border-radius: 12px; padding: 15px; box-sizing: border-box; 
     display: flex; align-items: flex-end; font-weight: 900; font-size: 16px; cursor: pointer; 
     transition: all 0.2s ease; box-shadow: inset 0 -30px 40px rgba(0,0,0,0.3); border: 2px solid transparent;
+    position: relative; /* Thêm để giữ icon nằm trong khung */
+    overflow: hidden;   /* Thêm để icon không bị tràn ra ngoài viền bo góc */
 }
-/* Bỏ hiệu ứng nhảy, chỉ giữ viền trắng sáng lên */
 .cat-card:hover { border-color: var(--white-50); background-color: var(--black-60); }
+
+/* Bọc chữ lại để nó nổi lên trên ảnh */
+.cat-card span {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* CSS cho cục ảnh 3D */
+.cat-icon {
+    position: absolute;
+    right: -5px;      /* Kéo ảnh lệch sang phải một chút cho nghệ */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 65px;      /* Độ to của ảnh */
+    height: auto;
+    z-index: 1;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+/* Hiệu ứng khi di chuột vào thẻ thì ảnh phóng to ra 1 xíu */
+.cat-card:hover .cat-icon {
+    transform: translateY(-50%) scale(1.15);
+}
 
 /* ==========================================================================
    9. LƯỚI GAME HERO & THẺ GAME (FIX LỖI CHE GÓC)
@@ -570,20 +598,27 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
         <section id="home-section">
             
-            <div class="category-slider">
-                <div class="cat-card" style="background: linear-gradient(135deg, #1d5657, #154a6f);">
-                    Trực tuyến với bạn bè
-                </div>
-                <div class="cat-card" style="background: linear-gradient(135deg, #58522c, #604230);">
-                    5 phút vui vẻ
-                </div>
-                <div class="cat-card" style="background: linear-gradient(135deg, #154a6f, #191e5d);">
-                    Rèn luyện trí não
-                </div>
-                <div class="cat-card" style="background: linear-gradient(135deg, #2e6136, #1d5657);">
-                    Meme & bloxy
-                </div>
-            </div>
+           <div class="category-slider">
+    <div class="cat-card" style="background: linear-gradient(135deg, #1d5657, #154a6f);">
+        <span>Trực tuyến với bạn bè</span>
+        <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Clapping%20hands/3D/clapping_hands_3d_default.png" class="cat-icon" alt="icon">
+    </div>
+
+    <div class="cat-card" style="background: linear-gradient(135deg, #58522c, #604230);">
+        <span>5 phút vui vẻ</span>
+        <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hot%20beverage/3D/hot_beverage_3d.png" class="cat-icon" alt="icon">
+    </div>
+
+    <div class="cat-card" style="background: linear-gradient(135deg, #154a6f, #191e5d);">
+        <span>Rèn luyện trí não</span>
+        <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Brain/3D/brain_3d.png" class="cat-icon" alt="icon">
+    </div>
+
+    <div class="cat-card" style="background: linear-gradient(135deg, #2e6136, #1d5657);">
+        <span>Meme & bloxy</span>
+        <img src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Dog%20face/3D/dog_face_3d.png" class="cat-icon" alt="icon">
+    </div>
+</div>
 
             <h2>Lựa chọn hàng đầu dành cho bạn</h2>
             <div class="hero-grid">
