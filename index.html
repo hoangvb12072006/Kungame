@@ -290,30 +290,70 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(104, 66, 255, 1)); }
         }
 
-        /* Khung thông tin nằm dưới Toolbar */
-        .game-bottom-frame {
-            margin-top: 15px;
-            height: 100px;
-            background: var(--black-80);
+        /* ==========================================================================
+           PHẦN THÔNG TIN CHI TIẾT GAME BÊN DƯỚI
+           ========================================================================== */
+        .game-details-container {
+            margin-top: 20px;
+            padding: 0 10px;
+            color: var(--white-100);
+            font-family: var(--font-nunito);
+        }
+
+        /* Banner đăng nhập lưu tiến trình */
+        .promo-banner {
+            background: linear-gradient(90deg, #492eb3, #2a1a66);
             border-radius: 12px;
-            border: 1px solid var(--black-60);
+            padding: 12px 20px;
             display: flex;
-            align-items: flex-end;
-            padding: 15px 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-        }
-        
-        /* Chữ điều hướng (Breadcrumbs) màu tím */
-        .game-bottom-frame p {
-            color: var(--brand-100);
-            font-size: 13px;
-            font-weight: 700;
-            margin: 0;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.2s;
         }
-        .game-bottom-frame p:hover {
-            color: var(--brand-80);
+        .promo-banner:hover { filter: brightness(1.1); }
+        .promo-content { display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 16px; }
+
+        /* Điều hướng (Breadcrumbs) */
+        .breadcrumbs {
+            font-size: 13px;
+            color: var(--brand-60);
+            font-weight: 700;
+            margin-bottom: 15px;
         }
+        .breadcrumbs span { color: var(--white-50); }
+
+        /* Tiêu đề & Nút chia sẻ */
+        .desc-title { font-size: 28px; font-weight: 900; margin: 0 0 15px 0; }
+        .share-btn-large {
+            background: var(--black-60); border: none; color: var(--white-100);
+            padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 14px;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 25px; transition: 0.2s;
+        }
+        .share-btn-large:hover { background: var(--black-50); }
+
+        /* Bảng thông số (Metadata) */
+        .metadata-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+        .meta-row { display: flex; align-items: baseline; font-size: 14px; line-height: 1.5; }
+        .meta-label { width: 150px; color: var(--white-30); font-weight: 700; text-transform: capitalize; flex-shrink: 0; }
+        .meta-value { color: var(--white-100); font-weight: 700; flex: 1; }
+        .meta-value.purple-text { color: var(--brand-60); cursor: pointer; }
+        .meta-value.purple-text:hover { color: var(--brand-100); }
+        .meta-sub { color: var(--white-30); font-weight: 400; font-size: 12px; margin-left: 5px; }
+
+        /* Dàn Nút Tags (Thể loại game) */
+        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .tag-chip {
+            background: var(--black-60); border: 1px solid var(--black-50);
+            padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700;
+            color: var(--white-50); cursor: pointer; transition: 0.2s;
+        }
+        .tag-chip:hover { border-color: var(--brand-100); color: var(--white-100); }
+        .tag-count { color: var(--brand-60); margin-left: 5px; }
+
+        /* Đoạn văn mô tả */
+        .game-description-text { color: var(--white-50); font-size: 15px; font-weight: 400; line-height: 1.6; margin: 0; }
         
     </style>
 </head>
@@ -531,10 +571,64 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
                         </div>
                     </div>
 
-                    <div class="game-bottom-frame">
-                        <p>Trò Chơi > Hành Động > Phiêu Lưu > <span id="breadcrumbTitle">Tên Game</span></p>
+                   <div class="game-details-container">
+                        
+                        <div class="promo-banner">
+                            <div class="promo-content">
+                                <img src="https://picsum.photos/40/40?random=100" style="border-radius: 8px; width: 32px; height: 32px;">
+                                <span>Đăng nhập để lưu tiến trình của bạn!</span>
+                            </div>
+                            <i class="fas fa-arrow-right" style="color: var(--white-100);"></i>
+                        </div>
+
+                        <div class="breadcrumbs">
+                            Trò Chơi > Hành Động > Phiêu Lưu > <span id="breadcrumbTitleDesc">Tên Game</span>
+                        </div>
+
+                        <h1 class="desc-title" id="descTitle">Tên Game</h1>
+                        <button class="share-btn-large"><i class="fas fa-share"></i> Chia sẻ</button>
+
+                        <div class="metadata-grid">
+                            <div class="meta-row">
+                                <span class="meta-label">Nhà phát triển:</span>
+                                <span class="meta-value purple-text">Hoangkun Studio</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Xếp hạng:</span>
+                                <span class="meta-value">9.2 <span class="meta-sub">(358.912 phiếu bầu)</span></span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Phát hành:</span>
+                                <span class="meta-value">tháng 3 năm 2024</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Cập nhật mới:</span>
+                                <span class="meta-value">hôm nay</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Công nghệ:</span>
+                                <span class="meta-value">HTML5 (Hỗ trợ tốt mọi thiết bị)</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Nền tảng:</span>
+                                <span class="meta-value">Trình duyệt (máy tính, điện thoại, máy tính bảng)</span>
+                            </div>
+                        </div>
+
+                        <div class="tags-container">
+                            <div class="tag-chip">.io <span class="tag-count">120</span></div>
+                            <div class="tag-chip">Tăng trưởng <span class="tag-count">93</span></div>
+                            <div class="tag-chip">Mobile <span class="tag-count">1.900</span></div>
+                            <div class="tag-chip">Từ-Trên-Xuống <span class="tag-count">235</span></div>
+                            <div class="tag-chip">Chiến trường <span class="tag-count">495</span></div>
+                            <div class="tag-chip">Nhiều người chơi <span class="tag-count">332</span></div>
+                            <div class="tag-chip">Chuột <span class="tag-count">1.616</span></div>
+                        </div>
+
+                        <p class="game-description-text">
+                            Đây là một trò chơi chiến đấu trực tuyến góc nhìn từ trên xuống hấp dẫn. Thu thập vật phẩm, nâng cấp sức mạnh và đánh bại những người chơi khác để giành lấy vị trí Top 1 trên bảng xếp hạng. Bạn đã sẵn sàng tham gia đấu trường khốc liệt này chưa?
+                        </p>
                     </div>
-                </div>
 
                 <div class="suggested-sidebar">
                     <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Veck.io')">
@@ -560,48 +654,79 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
     </main>
 
     <script>
-        function playGame(url, title) {
-            // 1. Hiển thị Logo Loading và chặn click vào game
-            const loader = document.getElementById('game-loader');
-            loader.style.opacity = '1';
-            loader.style.pointerEvents = 'auto';
+        // 1. Lắng nghe sự kiện khi web vừa tải xong hoặc khi đường link thay đổi (Chống F5 văng game)
+        window.addEventListener('DOMContentLoaded', checkUrlState);
+        window.addEventListener('hashchange', checkUrlState);
 
-            // 2. Thu nhỏ Sidebar
-            document.getElementById('main-sidebar').classList.add('collapsed');
-            document.getElementById('main-content').classList.add('expanded');
-
-            // 3. Đổi giao diện
-            document.getElementById('home-section').style.display = 'none';
-            document.getElementById('player-section').style.display = 'block';
-
-            // 4. Load Game và cập nhật tên
-            document.getElementById('gameFrame').src = url;
-            document.getElementById('currentGameTitle').innerText = title;
-            document.getElementById('breadcrumbTitle').innerText = title; // Cập nhật tên ở khung dưới
-            
-            window.scrollTo(0, 0);
-        }
-
-        // Hàm này sẽ tự động chạy khi iframe tải xong game
-        function hideLoader() {
-            const loader = document.getElementById('game-loader');
-            if(loader) {
-                loader.style.opacity = '0'; // Mờ dần
-                loader.style.pointerEvents = 'none'; // Cho phép click xuyên qua vào game
+        function checkUrlState() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#play&')) {
+                const params = new URLSearchParams(hash.replace('#play&', ''));
+                const url = decodeURIComponent(params.get('url'));
+                const title = decodeURIComponent(params.get('title'));
+                showGameInterface(url, title);
+            } else {
+                showHomeInterface();
             }
         }
 
+        // 2. Hàm khi bấm vào thẻ game
+        function playGame(url, title) {
+            const safeUrl = encodeURIComponent(url);
+            const safeTitle = encodeURIComponent(title);
+            window.location.hash = `play&url=${safeUrl}&title=${safeTitle}`;
+        }
+
+        // 3. Hàm khi bấm nút Thoát
         function goHome() {
-            // 1. Phóng to Sidebar
+            window.location.hash = ''; 
+        }
+
+        // 4. Các hàm xử lý giao diện
+        function showGameInterface(url, title) {
+            // Hiện Loader mặt cười
+            const loader = document.getElementById('game-loader');
+            if(loader) { loader.style.opacity = '1'; loader.style.pointerEvents = 'auto'; }
+
+            // Thu nhỏ sidebar
+            document.getElementById('main-sidebar').classList.add('collapsed');
+            document.getElementById('main-content').classList.add('expanded');
+            
+            // Chuyển màn hình
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('player-section').style.display = 'block';
+
+            // Load Game
+            document.getElementById('gameFrame').src = url;
+            
+            // --- CẬP NHẬT TÊN GAME Ở 3 VỊ TRÍ ---
+            document.getElementById('currentGameTitle').innerText = title; // Trên thanh công cụ
+            
+            const breadcrumb = document.getElementById('breadcrumbTitleDesc');
+            if(breadcrumb) breadcrumb.innerText = title; // Ở chữ màu tím
+            
+            const descTitle = document.getElementById('descTitle');
+            if(descTitle) descTitle.innerText = title; // Ở tiêu đề to
+            // ------------------------------------
+
+            window.scrollTo(0, 0);
+        }
+
+        function showHomeInterface() {
             document.getElementById('main-sidebar').classList.remove('collapsed');
             document.getElementById('main-content').classList.remove('expanded');
-
-            // 2. Hiện lại trang chủ
             document.getElementById('home-section').style.display = 'block';
             document.getElementById('player-section').style.display = 'none';
-
-            // 3. Tắt Game
             document.getElementById('gameFrame').src = '';
+        }
+
+        // 5. Tắt màn hình đen khi game load xong
+        function hideLoader() {
+            const loader = document.getElementById('game-loader');
+            if(loader) {
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+            }
         }
     </script>
 </body>
