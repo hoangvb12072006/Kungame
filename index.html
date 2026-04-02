@@ -237,6 +237,29 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 .badge-new { background: linear-gradient(90deg,#c93dd1,#8a4fff); color: var(--white-100); }
 .badge-updated { background: linear-gradient(90deg,#28c7df,#5082ff); color: var(--white-100);}
 .badge-hot { background: linear-gradient(90deg,#ff2f0f,#ff8b2d); color: var(--white-100); }
+
+
+        /* ==========================================================================
+           13. HIỆU ỨNG TÊN GAME NỔI BẬT DƯỚI ĐÁY THẺ
+           ========================================================================== */
+        .game-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            padding: 30px 15px 10px 15px;
+            color: var(--white-100);
+            font-weight: 800;
+            font-size: 16px;
+            z-index: 2;
+            box-sizing: border-box;
+            pointer-events: none; /* Không cản trở click chuột vào game */
+        }
+        .span-2x2 .game-title-overlay {
+            font-size: 24px; /* Chữ to hơn cho ô game lớn */
+            padding-top: 50px;
+        }
         
     </style>
 </head>
