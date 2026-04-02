@@ -562,35 +562,6 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
     <script>
         function playGame(url, title) {
-            // 1. Thu nhỏ Sidebar
-            document.getElementById('main-sidebar').classList.add('collapsed');
-            document.getElementById('main-content').classList.add('expanded');
-
-            // 2. Đổi giao diện
-            document.getElementById('home-section').style.display = 'none';
-            document.getElementById('player-section').style.display = 'block';
-
-            // 3. Load Game
-            document.getElementById('gameFrame').src = url;
-            document.getElementById('currentGameTitle').innerText = title;
-            window.scrollTo(0, 0);
-        }
-
-        function goHome() {
-            // 1. Phóng to Sidebar
-            document.getElementById('main-sidebar').classList.remove('collapsed');
-            document.getElementById('main-content').classList.remove('expanded');
-
-            // 2. Hiện lại trang chủ
-            document.getElementById('home-section').style.display = 'block';
-            document.getElementById('player-section').style.display = 'none';
-
-            // 3. Tắt Game
-            document.getElementById('gameFrame').src = '';
-        }
-    </script>
-    <script>
-        function playGame(url, title) {
             // 1. Hiển thị Logo Loading và chặn click vào game
             const loader = document.getElementById('game-loader');
             loader.style.opacity = '1';
