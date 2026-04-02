@@ -352,8 +352,53 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
         .tag-chip:hover { border-color: var(--brand-100); color: var(--white-100); }
         .tag-count { color: var(--brand-60); margin-left: 5px; }
 
-        /* Đoạn văn mô tả */
-        .game-description-text { color: var(--white-50); font-size: 15px; font-weight: 400; line-height: 1.6; margin: 0; }
+        /* Bài viết mô tả game (Đoạn văn, Tiêu đề, Gạch đầu dòng) */
+        .game-article {
+            color: var(--white-30); /* Màu xám sáng dễ đọc */
+            font-size: 15px;
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+        .game-article p { margin: 0 0 15px 0; }
+        .game-article h3 {
+            color: var(--white-100);
+            font-size: 20px;
+            font-weight: 800;
+            margin: 25px 0 15px 0;
+        }
+        .game-article ul { padding-left: 20px; margin-bottom: 20px; }
+        .game-article li { margin-bottom: 8px; }
+        
+        /* Nút quay lại trò chơi ở đáy */
+        .return-to-game-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+        .btn-return-game {
+            background: var(--brand-100);
+            color: var(--white-100);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-family: var(--font-nunito);
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-return-game:hover {
+            background: var(--brand-80);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(104, 66, 255, 0.4);
+        }
+
+        .game-article a { color: var(--brand-60); text-decoration: none; transition: 0.2s; }
+        .game-article a:hover { color: var(--brand-100); text-decoration: underline; }
 
         /* ==========================================================================
            11. GIAO DIỆN MÀN HÌNH CHƠI GAME & CHI TIẾT (CHUẨN CRAZYGAMES)
@@ -703,30 +748,69 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
                             <div class="tag-chip">Chuột <span class="tag-count">1.616</span></div>
                         </div>
 
-                        <p class="game-description-text">
-                            Đây là một trò chơi chiến đấu trực tuyến góc nhìn từ trên xuống hấp dẫn. Thu thập vật phẩm, nâng cấp sức mạnh và đánh bại những người chơi khác để giành lấy vị trí Top 1 trên bảng xếp hạng. Bạn đã sẵn sàng tham gia đấu trường khốc liệt này chưa?
-                        </p>
-                    </div>
+                       <div class="game-article">
+                            <p>EvoWars.io là một trò chơi chiến đấu IO lấy bối cảnh đấu trường trực tuyến góc nhìn từ trên xuống. Thu thập các quả cầu và chiến đấu với người chơi khác để tiến hóa chiến binh của bạn. Mỗi lần tiến hóa sẽ cải thiện tầm bắn của vũ khí nhưng lại làm chậm tốc độ di chuyển của bạn. Bạn sẽ tiêu diệt được bao nhiêu kẻ thù trước khi gục ngã?</p>
+                            
+                            <h3>Cách chơi EvoWars.io</h3>
+                            <p>Bắt đầu một nhiệm vụ hoành tráng trên chiến trường kỹ thuật số, nơi bạn sẽ thu thập những quả cầu mạnh mẽ để tiến hóa chiến binh của mình thành những hình dạng bất khả chiến bại. Khi bạn chém kẻ thù bằng kiếm, rìu và kho vũ khí tàn bạo, mỗi trận chiến sẽ đưa bạn đến gần hơn với chiến binh tối thượng. Với hơn 15 mô hình nhân vật độc đáo để mở khóa, hành trình của bạn sẽ là một hành trình không ngừng tiến hóa và mạnh mẽ.</p>
+                            <p>Bạn điều khiển một chiến binh liên tục tiến công bằng chuột, vung vũ khí để đánh bại kẻ thù và thu thập XP để tiến hóa thành những dạng mạnh hơn với vũ khí lớn hơn và tầm tấn công xa hơn. Trong quá trình chơi, bạn sẽ mở khóa thêm nhiều dạng tiến hóa và tùy chỉnh chiến binh của mình với các loại vũ khí và trang bị khác nhau để tiêu diệt tất cả các chiến binh khác trên chiến trường và ngày càng mạnh mẽ hơn.</p>
+                            <p>Khi tích lũy điểm, bạn sẽ có thể nâng cấp động lực chơi. Sẽ mất một thời gian để đến đích. Đây không phải là trò chơi dễ thành thạo.</p>
+                            <p>Chìa khóa của trò chơi 2D góc nhìn từ trên xuống này là chiến thắng trong các trận chiến. Mỗi chiến thắng cho phép bạn trở nên mạnh mẽ hơn, nhưng chiến trường không chỉ là sức mạnh thể chất; bạn cần xác định phong cách chơi của mình và tận dụng mọi cơ hội để vượt qua kẻ thù. Dù bạn đang lao đầu vào trận chiến hay áp dụng chiến thuật, sự thống trị đều nằm trong tầm tay bạn.</p>
+                            
+                            <h3>Các chế độ chơi trong EvoWars.io</h3>
+                            <ul>
+                                <li>Deatmatch: Free For All, chế độ Battle Royale cổ điển nơi mọi người đều là kẻ thù</li>
+                                <li>Đội: bạn là thành viên của một trong hai đội, đỏ hoặc xanh, và mục tiêu của bạn là bảo vệ Người bảo vệ của đội trong khi đánh bại kẻ thù và cuối cùng là Người bảo vệ của kẻ thù</li>
+                                <li>Đấu tay đôi: Trận đấu 1 đấu 1 với một đối thủ ngẫu nhiên. Bạn và đối thủ đều bắt đầu ở một cấp độ ngẫu nhiên. Người đầu tiên thắng ba trận đấu tay đôi sẽ thắng trận đấu.</li>
+                                <li>Monster Hunt: chế độ hợp tác nơi bạn và những người chơi khác phải đối mặt với lũ quái vật do AI điều khiển</li>
+                                <li>Cổ điển: đây là phiên bản cũ của EvoWars</li>
+                            </ul>
 
-                <div class="suggested-sidebar">
-                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Veck.io')">
-                        <img src="https://picsum.photos/320/180?random=20" alt="Game">
-                    </div>
-                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Dig Out')">
-                        <img src="https://picsum.photos/320/180?random=21" alt="Game">
-                    </div>
-                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Survive')">
-                        <img src="https://picsum.photos/320/180?random=22" alt="Game">
-                    </div>
-                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Monkey')">
-                        <img src="https://picsum.photos/320/180?random=23" alt="Game">
-                    </div>
-                    <div class="suggested-card" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Miniblox')">
-                        <img src="https://picsum.photos/320/180?random=24" alt="Game">
-                    </div>
-                </div>
+                            <h3>Mẹo</h3>
+                            <ul>
+                                <li>Tập trung vào việc thu thập các quả cầu ở bên ngoài bản đồ khi bạn ở cấp độ thấp thay vì chiến đấu với những người chơi khác.</li>
+                                <li>Tầm bắn của vũ khí sẽ được cải thiện khi bạn lớn hơn, nhưng bạn cũng sẽ chậm hơn, vì vậy hãy nhớ luôn thận trọng và cảnh giác.</li>
+                                <li>Khi bạn nhỏ hơn, bạn có thể di chuyển nhanh hơn; hãy tận dụng lợi thế này và chơi né tránh nhiều hơn ở các cấp độ thấp hơn.</li>
+                            </ul>
 
-            </div>
+                            <h3>Đặc trưng</h3>
+                            <ul>
+                                <li>Lối chơi chém dữ dội để loại bỏ đối thủ</li>
+                                <li>Bạn có thể tăng cấp để tăng kích thước và tiến hóa lên hơn 15 mô hình nhân vật</li>
+                                <li>Xác định phong cách chơi của bạn và tận dụng mọi cơ hội càng nhiều càng tốt</li>
+                                <li>Khả năng chạy nước rút với cái giá phải trả là điểm kinh nghiệm của bạn</li>
+                            </ul>
+
+                            <h3>Thêm hành động trò chơi IO</h3>
+                            <p>Nếu bạn thích EvoWars, hãy thử <a href="#">các trò chơi .io</a> đình đám khác của chúng tôi, chẳng hạn như <a href="#">Agar.io</a> và <a href="#">ZombsRoyale.io</a>.</p>
+                            <p>Nếu bạn muốn thử điều gì đó khác biệt, hãy thử <a href="#">Sprunki</a> hoặc <a href="#">Friday Night Funkin'</a>.</p>
+
+                            <h3>Ngày phát hành</h3>
+                            <p>Tháng 3 năm 2018</p>
+
+                            <h3>Nhà phát triển</h3>
+                            <p>Night Steed Games đã tạo ra EvoWars.io.</p>
+
+                            <h3>Nền tảng</h3>
+                            <ul>
+                                <li>Trình duyệt web (máy tính để bàn và thiết bị di động)</li>
+                                <li>Android</li>
+                                <li>iOS</li>
+                            </ul>
+
+                            <h3>Cập nhật mới nhất</h3>
+                            <p>03 thg 10, 2025</p>
+
+                            <h3>Kiểm soát</h3>
+                            <p>Di chuyển chuột để điều khiển nhân vật. Nhấp chuột trái để tấn công. Nhấp chuột phải để chạy nước rút.</p>
+
+                            <div class="return-to-game-wrapper">
+                                <button class="btn-return-game" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                                    <i class="fas fa-arrow-up"></i> Quay lại trò chơi
+                                </button>
+                            </div>
+                        </div>
+    
         </section>
 
     </main>
