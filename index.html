@@ -4,12 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoangkun Game Center</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body class="dark-theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. HỆ THỐNG BIẾN MÀU & FONT NUNITO TỪ CRAZYGAMES
+           ========================================================================== */
+        :root {
+            --brand-0: #fff; --brand-20: #e1d9ff; --brand-30: #d2c6ff; --brand-40: #c3b3ff;
+            --brand-50: #b4a1ff; --brand-60: #a48eff; --brand-70: #957bff; --brand-80: #8668ff;
+            --brand-100: #6842ff; --brand-120: #5335cc; --brand-130: #492eb3; --brand-140: #3e2899;
+            --brand-150: #342180; --brand-160: #2a1a66; --brand-180: #150d33; --brand-200: #07050f;
+            --black-10: #474967; --black-20: #434561; --black-40: #373952; --black-50: #2f3148;
+            --black-60: #28293d; --black-70: #212233; --black-80: #1a1b28; --black-90: #13141e;
+            --black-100: #0c0d14; --white-10: #666a7f; --white-20: #767a8e; --white-30: #878a9e;
+            --white-40: #989bae; --white-50: #aaadbe; --white-60: #bdbfce; --white-70: #d0d2de;
+            --white-80: #e5e6ee; --white-90: #eff0f7; --white-100: #f9faff;
+            --success-100: #4af0a7; --alert-40: #f59ebe; --alert-60: #f16e9d; --alert-100: #e70d5c;
+            --warning-100: #ffac4a; --warning-200: #3c2a16;
+            
+            --sidebar-width: 216px;
+            --sidebar-collapsed-width: 76px;
+            --header-height: 60px;
+            --font-nunito: "Nunito", "Nunito Fallback", sans-serif;
+        }
 
-  <aside class="sidebar">
+        @font-face { font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url(https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2) format("woff2"); }
+        @font-face { font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url(https://builds.crazygames.com/portal-web/_next/static/media/3131c862d4942660-s.woff2) format("woff2"); }
+        @font-face { font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url(https://builds.crazygames.com/portal-web/_next/static/media/e1694c6cb47c173f-s.woff2) format("woff2"); }
+        @font-face { font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url(https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2) format("woff2"); }
+
+        /* ==========================================================================
+           2. RESET CƠ BẢN
+           ========================================================================== */
+        html, body { margin: 0; padding: 0; overflow-x: hidden; width: 100%; }
+        body { overflow-y: scroll; scrollbar-gutter: stable; background: var(--black-100); color: var(--white-100); font-family: var(--font-nunito); display: flex; }
+        a { text-decoration: none; font-weight: 700; }
+
+        @keyframes scroll-gradient { 0% { background-position: 0 50%; } 100% { background-position: 350% 0; } }
+        @keyframes logo-buzz { 50% { transform: translateX(1.5px) rotate(2deg); } 100% { transform: translateX(-1.5px) rotate(-2deg); } }
+
+        .animated-green-gradient {
+            color: var(--black-100); background: linear-gradient(90deg, #49f3c3, #64f17e, #49f3c3); background-size: 700% 100%;
+            animation: scroll-gradient 3s linear infinite; transition: filter 0.2s ease, transform 0.2s ease; border: none; font-weight: 800; cursor: pointer;
+        }
+        .animated-green-gradient:hover { filter: brightness(1.2); transform: scale(1.05); }
+
+        /* ==========================================================================
+           3. SIDEBAR (THANH MENU TRÁI)
+           ========================================================================== */
+        .sidebar { 
+            width: var(--sidebar-width); background: var(--black-100); height: 100vh; position: fixed; display: flex; flex-direction: column; 
+            z-index: 100; border-right: 1px solid var(--black-60); overflow-x: hidden; transition: width 0.3s ease;
+        }
+        /* Style khi Sidebar thu nhỏ (Lúc chơi game) */
+        .sidebar.collapsed { width: var(--sidebar-collapsed-width); }
+        .sidebar.collapsed span, .sidebar.collapsed .sidebar-footer, .sidebar.collapsed .logo-text { display: none !important; }
+
+        .logo-area { height: 60px; display: flex; align-items: center; padding: 0 20px; gap: 15px; width: 100%; box-sizing: border-box; }
+        .menu-icon { font-size: 20px; color: var(--white-100); cursor: pointer; }
+        .sidebar .logo { display: flex; align-items: center; gap: 10px; color: var(--white-100); }
+        .logo-icon { animation: logo-buzz 3s linear infinite; }
+        .logo-text { display: flex; flex-direction: column; line-height: 0.9; font-weight: 900; font-size: 18px; letter-spacing: -0.5px; }
+
+        .sidebar-scroll { width: 100%; overflow-y: hidden; overflow-x: hidden; padding-top: 10px; flex: 1; }
+        .sidebar-scroll:hover { overflow-y: auto; }
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--white-50); border-radius: 4px; }
+
+        .menu-list { padding: 0; margin: 0; display: flex; flex-direction: column; }
+        .menu-list li { 
+            list-style: none; width: 100%; height: 40px; display: flex; align-items: center; justify-content: flex-start;
+            cursor: pointer; font-size: 15px; font-weight: 700; color: var(--white-30); padding: 0 20px; box-sizing: border-box; border-left: 4px solid transparent; 
+        }
+        .menu-list li i { font-size: 18px; color: var(--white-30); transition: 0.2s ease; width: 24px; text-align: center; margin-right: 12px; }
+        .menu-list li span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: 0.2s ease; }
+        .menu-list li:hover { color: var(--white-100); background: var(--black-90); }
+        .menu-list li:hover i, .menu-list li:hover span { color: var(--white-100); transform: translateX(4px); }
+        .menu-list li.active { border-left: 4px solid var(--brand-100); color: var(--brand-100); background: var(--black-80); }
+        .menu-list li.active i { color: var(--brand-100); }
+        .divider { border: 0; border-top: 1px solid var(--black-60); margin: 15px 20px; }
+
+        .sidebar-footer { padding: 20px; display: flex; flex-direction: column; gap: 15px; background: var(--black-100); border-top: 1px solid var(--black-60);}
+        .contact-btn { background: var(--brand-100); color: var(--white-100); border: none; padding: 12px 15px; border-radius: 12px; font-family: var(--font-nunito); font-weight: 800; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; width: 100%; }
+        .contact-btn:hover { background: var(--brand-80); transform: translateY(-2px); }
+        .language-selector { background: var(--black-60); border: 1px solid var(--black-40); padding: 10px 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; color: var(--white-50); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; }
+        .language-selector:hover { border-color: var(--brand-100); color: var(--white-100); }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px 12px; padding-top: 5px; }
+        .footer-links a { color: var(--white-30); font-size: 12px; font-weight: 700; transition: color 0.2s ease; }
+        .footer-links a:hover { color: var(--white-100); }
+        .social-icons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
+        .social-icons a { color: var(--white-50); background: var(--black-60); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s ease; }
+        .social-icons a:hover { color: var(--white-100); background: var(--brand-100); transform: translateY(-3px); }
+
+        /* ==========================================================================
+           4. KHUNG NỘI DUNG CHÍNH (CHỐNG TRÀN LỀ)
+           ========================================================================== */
+        .content { 
+            margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); 
+            min-width: 0; padding: 20px 40px; box-sizing: border-box; transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+        .content.expanded { margin-left: var(--sidebar-collapsed-width); width: calc(100% - var(--sidebar-collapsed-width)); }
+
+        /* ==========================================================================
+           5. THANH TRÊN (TOP BAR CĂN GIỮA CHUẨN)
+           ========================================================================== */
+        .top-bar { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 20px; position: sticky; top: 0; z-index: 99; background: var(--black-100); }
+        .search-container { position: absolute; left: 50%; transform: translateX(-50%); width: 100%; max-width: 460px; z-index: 1; }
+        .search-box { position: relative; width: 100%; }
+        .search-box input { width: 100%; height: 40px; background-color: var(--black-40); border: 1px solid transparent; border-radius: 30px; padding: 0 45px 0 20px; color: var(--white-100); font-family: var(--font-nunito); font-weight: 700; font-size: 16px; outline: none; transition: all 0.2s; box-sizing: border-box; }
+        .search-box input:focus { border-color: var(--brand-100); background-color: var(--black-50); box-shadow: 0 0 0 4px rgba(104, 66, 255, 0.1); }
+        .search-box input::placeholder { color: var(--white-30); font-weight: 700; }
+        .search-icon-wrapper { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--white-30); pointer-events: none; font-size: 15px; }
+        
+        .user-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; z-index: 2; }
+        .action-icon-btn { width: 40px; height: 40px; background-color: var(--black-40); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--white-50); cursor: pointer; transition: 0.2s; position: relative;}
+        .action-icon-btn:hover { background-color: var(--black-20); color: var(--white-100); transform: scale(1.05); }
+        .notification-badge { position: absolute; top: -2px; right: 3px; background-color: var(--alert-100); color: white; font-size: 10px; font-weight: 900; min-width: 18px; height: 14px; border-radius: 10px; display: flex; justify-content: center; align-items: center; border: 2px solid var(--black-100); pointer-events: none;}
+        .login-btn { background: var(--brand-100); color: white; border: none; height: 40px; padding: 0 24px; border-radius: 30px; font-weight: 800; font-size: 16px; cursor: pointer; margin-left: 8px; transition: all 0.25s ease; white-space: nowrap; }
+        .login-btn:hover { filter: brightness(1.1); background: var(--brand-80); box-shadow: 0 4px 15px rgba(104, 66, 255, 0.4); }
+
+        /* ==========================================================================
+           6. LƯỚI GAME & MÀN HÌNH CHƠI
+           ========================================================================== */
+        h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-100); }
+        
+        .category-slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 30px; scrollbar-width: none; }
+        .category-slider::-webkit-scrollbar { display: none; }
+        .cat-card { min-width: 200px; height: 80px; border-radius: 12px; padding: 15px; box-sizing: border-box; display: flex; align-items: flex-end; font-weight: 900; font-size: 16px; cursor: pointer; transition: transform 0.2s; box-shadow: inset 0 -30px 40px rgba(0,0,0,0.3); border: 2px solid transparent; }
+        .cat-card:hover { transform: translateY(-4px); border-color: var(--white-50); }
+
+        /* Mấu chốt sửa lỗi đè game nằm ở grid-auto-flow: dense */
+        .hero-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 150px; gap: 15px; margin-bottom: 40px; grid-auto-flow: dense; }
+        .span-2x2 { grid-column: span 2; grid-row: span 2; }
+        .standard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 40px; }
+
+        .card, .hero-card { background: var(--black-70); border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; }
+        .card { height: 130px; }
+        .card:hover, .hero-card:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--brand-100); }
+        .card img, .hero-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .badge { position: absolute; top: 8px; left: 8px; padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 5px; color: var(--black-100); z-index: 2; box-shadow: 4px 4px 20px 0 rgba(0,0,0,0.5); }
+        .badge i { font-size: 10px; }
+        .badge-top { background: linear-gradient(90deg,#ffc352,#faff9c); }
+        .badge-originals { background: var(--white-100); color: var(--brand-100); }
+        .badge-new { background: linear-gradient(90deg,#c93dd1,#8a4fff); color: var(--white-100); }
+        .badge-updated { background: linear-gradient(90deg,#28c7df,#5082ff); color: var(--white-100);}
+        .badge-hot { background: linear-gradient(90deg,#ff2f0f,#ff8b2d); color: var(--white-100); }
+
+        /* Giao diện lúc Play Game */
+        .player-layout { display: flex; gap: 20px; align-items: flex-start; }
+        .main-game-area { flex: 1; background: var(--black-80); border-radius: 16px; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+        .iframe-container { width: 100%; height: 75vh; background: #000; border-radius: 12px; overflow: hidden; }
+        #gameFrame { width: 100%; height: 100%; border: none; }
+        .game-toolbar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--black-60); }
+        .game-title { display: flex; align-items: center; gap: 15px; font-weight: 900; font-size: 20px; }
+        .action-btn { background: var(--black-60); border: none; color: var(--white-100); padding: 10px 15px; border-radius: 30px; cursor: pointer; font-size: 16px; font-weight: 800; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+        .action-btn:hover { background: var(--black-50); }
+        .btn-exit { background: var(--alert-100); }
+        .btn-exit:hover { background: var(--alert-60); }
+
+        /* ==========================================================================
+           7. TỰ ĐỘNG CO GIÃN THEO MỌI MÀN HÌNH (RESPONSIVE)
+           ========================================================================== */
+        @media (max-width: 1300px) {
+            .hero-grid { grid-template-columns: repeat(4, 1fr); }
+            .search-container { position: relative; left: 0; transform: none; max-width: 300px; margin-left: 20px; }
+        }
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: repeat(2, 1fr); }
+            .span-2x2 { grid-column: span 2; grid-row: span 2; }
+            .standard-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { width: var(--sidebar-collapsed-width); }
+            .sidebar span, .sidebar .logo-text, .sidebar-footer { display: none !important; }
+            .content { margin-left: var(--sidebar-collapsed-width); width: calc(100% - var(--sidebar-collapsed-width)); padding: 15px; }
+            .top-bar { padding: 0 10px; }
+            .search-container, .user-actions .action-icon-btn { display: none; } 
+            .login-btn { padding: 0 15px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside id="main-sidebar" class="sidebar">
         <div class="logo-area">
             <i class="fas fa-bars menu-icon"></i>
             <a href="#" class="logo">
@@ -29,138 +208,137 @@
 
         <div class="sidebar-scroll">
             <ul class="menu-list">
-                <li class="active"><i class="fas fa-home"></i> Trang chủ</li>
-                <li><i class="fas fa-clock"></i> Gần đây</li>
-                <li><i class="fas fa-star"></i> Mới</li>
-                <li><i class="fas fa-fire"></i> Xu hướng</li>
-                <li><i class="fas fa-sync-alt"></i> Cập nhật</li>
-                <li><i class="fas fa-crown"></i> Originals</li>
-                <li><i class="fas fa-users"></i> Multiplayer</li>
-                <li><i class="fas fa-trophy"></i> Bảng xếp hạng</li>
+                <li class="active"><i class="fas fa-home"></i> <span>Trang chủ</span></li>
+                <li><i class="fas fa-clock"></i> <span>Gần đây</span></li>
+                <li><i class="fas fa-star"></i> <span>Mới</span></li>
+                <li><i class="fas fa-fire"></i> <span>Xu hướng</span></li>
+                <li><i class="fas fa-sync-alt"></i> <span>Cập nhật</span></li>
+                <li><i class="fas fa-crown"></i> <span>Originals</span></li>
+                <li><i class="fas fa-users"></i> <span>Multiplayer</span></li>
+                <li><i class="fas fa-trophy"></i> <span>Bảng xếp hạng</span></li>
             </ul>
-            
             <hr class="divider">
-            
             <ul class="menu-list">
-                <li><i class="fas fa-layer-group"></i> Bài</li>
-                <li><i class="fas fa-crosshairs"></i> Bắn súng</li>
-                <li><i class="fas fa-gun"></i> Bắn súng Góc nhìn...</li>
-                <li><i class="fas fa-chess-rook"></i> Bảo vệ Tòa tháp</li>
-                <li><i class="fas fa-circle"></i> Bi da 6 lỗ</li>
-                <li><i class="fas fa-futbol"></i> Bóng đá</li>
-                <li><i class="fas fa-basketball-ball"></i> Bóng rổ</li>
-                <li><i class="fas fa-gamepad"></i> Casual</li>
-                <li><i class="fas fa-running"></i> Chạy trốn</li>
-                <li><i class="fas fa-gamepad"></i> Controller</li>
-                <li><i class="fas fa-bolt"></i> Đồ họa flash</li>
-                <li><i class="fas fa-puzzle-piece"></i> Giải đố</li>
-                <li><i class="fas fa-fist-raised"></i> Hành động</li>
-                <li><i class="fas fa-circle-notch"></i> .io</li>
-                <li><i class="fas fa-ghost"></i> Kinh dị</li>
-                <li><i class="fas fa-car"></i> Lái xe</li>
-                <li><i class="fas fa-layer-group"></i> Mahjong</li>
-                <li><i class="fas fa-cube"></i> Minecraft</li>
-                <li><i class="fas fa-walking"></i> Người que</li>
-                <li><i class="fas fa-brain"></i> Thinky</li>
-                <li><i class="fas fa-motorcycle"></i> Xe mô tô</li>
-                <li><i class="fas fa-car-side"></i> Xe ô tô</li>
+                <li><i class="fas fa-crosshairs"></i> <span>Bắn súng</span></li>
+                <li><i class="fas fa-car"></i> <span>Đua xe</span></li>
+                <li><i class="fas fa-futbol"></i> <span>Thể thao</span></li>
+                <li><i class="fas fa-ghost"></i> <span>Kinh dị</span></li>
+                <li><i class="fas fa-puzzle-piece"></i> <span>Giải đố</span></li>
             </ul>
+        </div>
 
-            <hr class="divider">
-
-            <ul class="menu-list">
-                <li><i class="fas fa-tag"></i> Thẻ</li>
-            </ul>
-
-            <div class="sidebar-footer">
-                <button class="contact-btn"><i class="far fa-envelope"></i> Liên hệ</button>
-
-                <div class="language-selector">
-                    <span>Tiếng Việt</span>
-                    <i class="fas fa-chevron-down" style="font-size: 12px;"></i>
-                </div>
-
-                <div class="footer-links">
-                    <a href="#">Về chúng tôi</a>
-                    <a href="#">Nhà phát triển trò chơi</a>
-                    <a href="#">Trang trẻ em</a>
-                    <a href="#">Công việc</a>
-                    <a href="#">Điều khoản và điều kiện</a>
-                    <a href="#">Quyền riêng tư</a>
-                    <a href="#">Tất cả trò chơi</a>
-                </div>
-
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-apple"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-google-play"></i></a>
-                </div>
+        <div class="sidebar-footer">
+            <button class="contact-btn">
+                <i class="fas fa-envelope"></i> Liên hệ
+            </button>
+            <div class="language-selector">
+                Tiếng Việt <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="footer-links">
+                <a href="#">Về chúng tôi</a>
+                <a href="#">Nhà phát triển</a>
+                <a href="#">Trang trẻ em</a>
+                <a href="#">Điều khoản</a>
+                <a href="#">Quyền riêng tư</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
             </div>
         </div>
     </aside>
 
-    <main class="content">
+    <main class="content" id="main-content">
         <header class="top-bar">
-    <div class="search-container">
-        <div class="search-box">
-            <input type="text" placeholder="Tìm kiếm trò chơi và danh mục">
-            <div class="search-icon-wrapper">
-                <i class="fas fa-search"></i>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm trò chơi và danh mục">
+                    <div class="search-icon-wrapper">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="user-actions">
-        <div class="action-icon-btn notification-btn">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge">1</span>
-        </div>
-        
-        <div class="action-icon-btn">
-            <i class="fas fa-heart"></i>
-        </div>
-        
-        <div class="action-icon-btn">
-            <i class="fas fa-user"></i>
-        </div>
+            <div class="user-actions">
+                <div class="action-icon-btn notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">1</span>
+                </div>
+                <div class="action-icon-btn">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="action-icon-btn">
+                    <i class="fas fa-user"></i>
+                </div>
+                <button class="login-btn animated-green-gradient">Đăng nhập</button>
+            </div>
+        </header>
 
-        <button class="login-btn animated-green-gradient">Đăng nhập</button>
-    </div>
-</header>
+        <section id="home-section">
+            
+            <div class="category-slider">
+                <div class="cat-card" style="background: linear-gradient(135deg, #1d5657, #154a6f);">
+                    Trực tuyến với bạn bè
+                </div>
+                <div class="cat-card" style="background: linear-gradient(135deg, #58522c, #604230);">
+                    5 phút vui vẻ
+                </div>
+                <div class="cat-card" style="background: linear-gradient(135deg, #154a6f, #191e5d);">
+                    Rèn luyện trí não
+                </div>
+                <div class="cat-card" style="background: linear-gradient(135deg, #2e6136, #1d5657);">
+                    Meme & bloxy
+                </div>
+            </div>
 
-        <section class="category-slider">
-            <div class="cat-card" style="background: linear-gradient(135deg, #183e3c, #165646);"><span>Trực tuyến với<br>bạn bè</span></div>
-            <div class="cat-card" style="background: linear-gradient(135deg, #443c24, #594a21);"><span>5 phút vui vẻ</span></div>
-            <div class="cat-card" style="background: linear-gradient(135deg, #183852, #184b6f);"><span>Rèn luyện trí não<br>của bạn</span></div>
-            <div class="cat-card" style="background: linear-gradient(135deg, #1f4221, #245a27);"><span>Meme & bloxy</span></div>
-            <div class="cat-card" style="background: linear-gradient(135deg, #442a18, #603618);"><span>Hãy trở thành<br>người giỏi nhất</span></div>
-        </section>
-
-        <section id="home-section" class="game-section">
             <h2>Lựa chọn hàng đầu dành cho bạn</h2>
             <div class="hero-grid">
-                <div class="hero-card span-2x2" onclick="playGame('https://hoangvb12072006.github.io/Kungame/', 'Kungame')">
-                    <img src="https://placehold.co/400x300/1e90ff/FFF?text=Kungame">
+                <div class="hero-card span-2x2" style="background-color: #2196F3;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Kungame Lớn')">
+                    <h1 style="position: absolute; bottom: 20px; left: 20px; color: white;">Kungame</h1>
                 </div>
                 
-                <div class="hero-card span-1x1"><div class="badge badge-top"><i class="fas fa-star"></i> Top</div><img src="https://placehold.co/200x140/333/FFF?text=Evowars"></div>
-                <div class="hero-card span-1x1"><img src="https://placehold.co/200x140/555/FFF?text=Traffic+Rider"></div>
+                <div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Evowars')">
+                    <div class="badge badge-top"><i class="fas fa-star"></i> Top</div>
+                    <h3 style="position: absolute; bottom: 10px; left: 15px; color: white;">Evowars</h3>
+                </div>
+                
+                <div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Traffic Rider')">
+                    <h3 style="position: absolute; bottom: 10px; left: 15px; color: white;">Traffic Rider</h3>
+                </div>
+                
+                <div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Stickman')">
+                    <div class="badge badge-originals"><i class="fas fa-crown"></i> Originals</div>
+                    <h3 style="position: absolute; bottom: 10px; left: 15px; color: white;">Stickman</h3>
+                </div>
 
-                <div class="hero-card span-1x1"><div class="badge badge-originals"><i class="fab fa-twitch"></i> Originals</div><img src="https://placehold.co/200x140/444/FFF?text=Stickman"></div>
-                <div class="hero-card span-1x1"><div class="badge badge-originals"><i class="fab fa-twitch"></i> Originals</div><img src="https://placehold.co/200x140/222/FFF?text=Racing+Limit"></div>
+                <div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Racing Limit')">
+                    <div class="badge badge-originals"><i class="fas fa-crown"></i> Originals</div>
+                    <h3 style="position: absolute; bottom: 10px; left: 15px; color: white;">Racing Limit</h3>
+                </div>
 
-                <div class="hero-card span-2x2"><img src="https://placehold.co/400x300/ff9ff3/FFF?text=Piece+of+Cake"></div>
+                <div class="hero-card span-2x2" style="background-color: #ff80df;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Piece of Cake')">
+                    <h2 style="position: absolute; bottom: 20px; left: 20px; color: white;">Piece of Cake</h2>
+                </div>
             </div>
 
             <h2>Trò chơi nổi bật</h2>
             <div class="standard-grid">
-                <div class="card"><div class="badge badge-new"><i class="fas fa-magic"></i> New</div><img src="https://placehold.co/200x120/1abc9c/FFF?text=Ember"></div>
-                <div class="card"><div class="badge badge-new"><i class="fas fa-magic"></i> New</div><img src="https://placehold.co/200x120/f39c12/FFF?text=Fish"></div>
-                <div class="card"><div class="badge badge-updated"><i class="fas fa-sync"></i> Updated</div><img src="https://placehold.co/200x120/2ecc71/FFF?text=Weapon"></div>
-                <div class="card"><div class="badge badge-hot"><i class="fas fa-fire"></i> Hot</div><img src="https://placehold.co/200x120/e74c3c/FFF?text=Trivia"></div>
+                <div class="card" style="background-color: #ff9800;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Fish')">
+                    <div class="badge badge-new"><i class="fas fa-bolt"></i> New</div>
+                    <h2 style="position: absolute; bottom: 10px; left: 15px; color: white; margin: 0;">Fish</h2>
+                </div>
+                <div class="card" style="background-color: #4caf50;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Weapon')">
+                    <div class="badge badge-updated"><i class="fas fa-sync-alt"></i> Updated</div>
+                    <h2 style="position: absolute; bottom: 10px; left: 15px; color: white; margin: 0;">Weapon</h2>
+                </div>
+                <div class="card" style="background-color: #f44336;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Trivia')">
+                    <div class="badge badge-hot"><i class="fas fa-fire"></i> Hot</div>
+                    <h2 style="position: absolute; bottom: 10px; left: 15px; color: white; margin: 0;">Trivia</h2>
+                </div>
+                <div class="card" style="background-color: #9c27b0;" onclick="playGame('https://html5.gamedistribution.com/f04c6328ee6f4caebda354f5c355839b/', 'Magic')">
+                    <h2 style="position: absolute; bottom: 10px; left: 15px; color: white; margin: 0;">Magic</h2>
+                </div>
             </div>
         </section>
 
@@ -168,39 +346,55 @@
             <div class="player-layout">
                 <div class="main-game-area">
                     <div class="iframe-container">
-                        <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
+                        <iframe id="gameFrame" src=""></iframe>
                     </div>
-                    
                     <div class="game-toolbar">
                         <div class="game-title">
-                            <i class="fas fa-gamepad" style="color: #5c3cfc; font-size: 24px;"></i>
-                            <h2 id="currentGameTitle" style="margin: 0;">Đang chơi...</h2>
+                            <i class="fas fa-gamepad" style="color: var(--brand-100);"></i>
+                            <span id="currentGameTitle">Đang tải...</span>
                         </div>
                         <div class="game-actions">
-                            <button onclick="goHome()" class="action-btn"><i class="fas fa-arrow-left"></i> Thoát</button>
-                            <button class="action-btn"><i class="fas fa-thumbs-up"></i> 117K</button>
-                            <button class="action-btn"><i class="fas fa-thumbs-down"></i></button>
-                            <button class="action-btn"><i class="fas fa-heart"></i></button>
-                            <button class="action-btn" onclick="openFullscreen()"><i class="fas fa-expand"></i></button>
+                            <button class="action-icon-btn"><i class="fas fa-expand"></i></button>
+                            <button class="action-icon-btn"><i class="fas fa-share-alt"></i></button>
+                            <button class="action-btn btn-exit" onclick="goHome()">
+                                <i class="fas fa-times"></i> Thoát Game
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <aside class="suggested-sidebar">
-                    <div class="game-grid mini" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="card" onclick="playGame('#', 'Gợi ý 1')"><img src="https://placehold.co/150x150/1e90ff/FFF?text=Gợi+Ý+1"></div>
-                        <div class="card" onclick="playGame('#', 'Gợi ý 2')"><img src="https://placehold.co/150x150/ff4757/FFF?text=Gợi+Ý+2"></div>
-                        <div class="card" onclick="playGame('#', 'Gợi ý 3')"><img src="https://placehold.co/150x150/2ed573/FFF?text=Gợi+Ý+3"></div>
-                        <div class="card" onclick="playGame('#', 'Gợi ý 4')"><img src="https://placehold.co/150x150/ffa502/FFF?text=Gợi+Ý+4"></div>
-                        <div class="card" onclick="playGame('#', 'Gợi ý 5')"><img src="https://placehold.co/150x150/9b59b6/FFF?text=Gợi+Ý+5"></div>
-                        <div class="card" onclick="playGame('#', 'Gợi ý 6')"><img src="https://placehold.co/150x150/34495e/FFF?text=Gợi+Ý+6"></div>
-                    </div>
-                </aside>
             </div>
         </section>
 
     </main>
 
-    <script src="main.js"></script>
+    <script>
+        function playGame(url, title) {
+            // 1. Thu nhỏ Sidebar
+            document.getElementById('main-sidebar').classList.add('collapsed');
+            document.getElementById('main-content').classList.add('expanded');
+
+            // 2. Đổi giao diện
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('player-section').style.display = 'block';
+
+            // 3. Load Game
+            document.getElementById('gameFrame').src = url;
+            document.getElementById('currentGameTitle').innerText = title;
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            // 1. Phóng to Sidebar
+            document.getElementById('main-sidebar').classList.remove('collapsed');
+            document.getElementById('main-content').classList.remove('expanded');
+
+            // 2. Hiện lại trang chủ
+            document.getElementById('home-section').style.display = 'block';
+            document.getElementById('player-section').style.display = 'none';
+
+            // 3. Tắt Game
+            document.getElementById('gameFrame').src = '';
+        }
+    </script>
 </body>
 </html>
