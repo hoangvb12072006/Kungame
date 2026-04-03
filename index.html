@@ -607,11 +607,7 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
         <li data-cat="Giải đố"><i class="fas fa-puzzle-piece"></i> <span>Giải đố</span></li>
     </ul>
 </div>
-
-<script src="recent-games.js"></script>
-<script src="sidebar.js"></script>
- <script src="new-games.js"></script>
-
+        
         <div class="sidebar-footer">
             <button class="contact-btn">
                 <i class="fas fa-envelope"></i> Liên hệ
@@ -1228,6 +1224,50 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             }
         }
     }
+</script>
+
+                    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuItems = document.querySelectorAll('.menu-list li');
+    const gameCards = document.querySelectorAll('.hero-card');
+    const sectionTitle = document.querySelector('h2');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // 1. Đổi hiệu ứng Active (màu tím) cho menu
+            menuItems.forEach(li => li.classList.remove('active'));
+            this.classList.add('active');
+
+            // 2. Lấy tên mục vừa nhấn
+            const category = this.querySelector('span').innerText;
+
+            // 3. Xử lý Lọc Game
+            if (category === "Trang chủ") {
+                // Hiện tất cả game
+                gameCards.forEach(card => card.style.display = 'block');
+                sectionTitle.innerText = "Lựa chọn hàng đầu dành cho bạn";
+            } else {
+                // Đổi tiêu đề cho đúng mục
+                sectionTitle.innerText = `Trò chơi: ${category}`;
+                
+                gameCards.forEach(card => {
+                    const title = card.querySelector('.game-title-overlay').innerText;
+                    const info = gameData[title];
+
+                    // Kiểm tra xem game có chứa Tag trùng với tên Menu không
+                    if (info && info.tags.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // 4. Cuộn lên đầu cho mượt
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+});
 </script>
                     
 </body>
