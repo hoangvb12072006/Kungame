@@ -569,33 +569,49 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             </a>
         </div>
 
-       <div class="sidebar-scroll">
-    <ul class="menu-list" id="main-menu">
-        <li class="active" id="menu-home">
-            <i class="fas fa-home"></i> <span>Trang chủ</span>
-        </li>
-        <li id="menu-recent">
-            <i class="fas fa-clock"></i> <span>Gần đây</span>
-        </li>
-        <li id="menu-new">
-            <i class="fas fa-star"></i> <span>Mới</span>
-        </li>
-        <li id="menu-trending">
-            <i class="fas fa-fire"></i> <span>Xu hướng</span>
-        </li>
-        <li id="menu-updated">
-            <i class="fas fa-sync-alt"></i> <span>Cập nhật</span>
-        </li>
-        <li id="menu-originals">
-            <i class="fas fa-crown"></i> <span>Originals</span>
-        </li>
-        <li id="menu-multiplayer">
-            <i class="fas fa-users"></i> <span>Multiplayer</span>
-        </li>
-        <li id="menu-leaderboard">
-            <i class="fas fa-trophy"></i> <span>Bảng xếp hạng</span>
-        </li>
+       <div class="sidebar-footer">
+    <button class="contact-btn" onclick="showFooterInfo('Liên hệ', 'Mọi thắc mắc hoặc hợp tác, vui lòng gửi email về:hoangvb12072006@gmail.com hoặc nhắn tin qua TikTok/Zalo của tui nhé! 😎')">
+        <i class="fas fa-envelope"></i> Liên hệ
+    </button>
+    
+    <div class="language-selector" style="position: relative;">
+    <div id="google_translate_element" style="display: none;"></div>
+    <div onclick="toggleLangMenu()" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <span id="current-lang"><i class="fas fa-globe"></i> Ngôn ngữ</span>
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <ul id="lang-menu" style="display: none; position: absolute; bottom: 50px; left: 0; width: 100%; background: var(--black-60); border: 1px solid var(--black-40); border-radius: 8px; list-style: none; padding: 5px 0; z-index: 1000; box-shadow: 0 -5px 15px rgba(0,0,0,0.5);">
+        <li onclick="changeLanguage('vi')" style="padding: 8px 15px; cursor: pointer; hover: background: var(--black-40);">Tiếng Việt</li>
+        <li onclick="changeLanguage('en')" style="padding: 8px 15px; cursor: pointer;">English</li>
+        <li onclick="changeLanguage('zh-CN')" style="padding: 8px 15px; cursor: pointer;">简体中文</li>
+        <li onclick="changeLanguage('ja')" style="padding: 8px 15px; cursor: pointer;">日本語</li>
+        <li onclick="changeLanguage('ko')" style="padding: 8px 15px; cursor: pointer;">한국어</li>
+        <li onclick="changeLanguage('fr')" style="padding: 8px 15px; cursor: pointer;">Français</li>
     </ul>
+</div>
+    
+    <div class="footer-links">
+        <a href="javascript:void(0)" onclick="showFooterInfo('Về chúng tôi', 'Kun Game Center là nền tảng chơi game HTML5 miễn phí, được phát triển bởi Hoàng Kun với mục tiêu mang lại những giây phút giải trí nhanh và vui vẻ cho mọi người.')">Về chúng tôi</a>
+        <a href="javascript:void(0)" onclick="showFooterInfo('Nhà phát triển', 'Nếu bạn là một nhà làm game và muốn đưa game của mình lên Kun Game, hãy liên hệ với đội ngũ của tui qua phần Liên hệ nhé!')">Nhà phát triển</a>
+        <a href="javascript:void(0)" onclick="showFooterInfo('Trang trẻ em', 'Trang web cam kết cung cấp các nội dung lành mạnh, an toàn và phù hợp cho mọi lứa tuổi, đặc biệt là trẻ em.')">Trang trẻ em</a>
+        <a href="javascript:void(0)" onclick="showFooterInfo('Điều khoản', 'Bằng việc sử dụng trang web, bạn đồng ý với các quy định về sử dụng dịch vụ của chúng tôi. Chúc bạn chơi game vui vẻ!')">Điều khoản</a>
+        <a href="javascript:void(0)" onclick="showFooterInfo('Quyền riêng tư', 'Chúng tôi cam kết bảo mật thông tin cá nhân của người dùng và không chia sẻ cho bất kỳ bên thứ ba nào.')">Quyền riêng tư</a>
+    </div>
+
+   <div class="social-icons">
+    <a href="https://tiktok.com/hoangkun12706" target="_blank" title="TikTok">
+        <i class="fab fa-tiktok"></i>
+    </a>
+
+    <a href="https://facebook.com/nvh12072006" target="_blank" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://zalo.me/84788265513" target="_blank" title="Zalo">
+        <i class="fas fa-comment-dots"></i>
+    </a>
+</div>
     
     <hr class="divider">
     
@@ -1268,7 +1284,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+                        function showFooterInfo(title, content) {
+    // Tui dùng tạm alert để nó hiện nhanh, nếu ông muốn đẹp hơn sau này tui chỉ làm popup sau
+    alert(`--- ${title.toUpperCase()} ---\n\n${content}`);
+}
+                        
 </script>
+
+  <script>
+// 1. Khởi tạo Google Translate (Ẩn thanh công cụ mặc định cho đẹp)
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'vi',
+        includedLanguages: 'vi,en,zh-CN,ja,ko,fr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+
+// 2. Hàm mở/đóng menu chọn tiếng
+function toggleLangMenu() {
+    const menu = document.getElementById('lang-menu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+// 3. Hàm kích hoạt dịch khi chọn ngôn ngữ
+function changeLanguage(langCode) {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+        
+        // Cập nhật chữ hiển thị trên nút
+        const langNames = {'vi':'Tiếng Việt', 'en':'English', 'zh-CN':'中文', 'ja':'日本語', 'ko':'한국어', 'fr':'Français'};
+        document.getElementById('current-lang').innerText = langNames[langCode];
+        toggleLangMenu(); // Đóng menu
+    }
+}
+
+// Đóng menu nếu click ra ngoài
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.language-selector')) {
+        document.getElementById('lang-menu').style.display = 'none';
+    }
+});
+ </script>   
                     
 </body>
 </html>
