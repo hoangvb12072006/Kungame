@@ -703,18 +703,20 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
                 </div>
             </div>
 
-            <div class="user-actions">
-                <div class="action-icon-btn notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">1</span>
-                </div>
-                <div class="action-icon-btn">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="action-icon-btn">
-                    <i class="fas fa-user"></i>
-                </div>
-                <button class="login-btn animated-green-gradient" onclick="showFooterInfo('Đăng nhập / Đăng ký', 'Hệ thống tài khoản đang được xây dựng. Sắp tới bạn có thể tạo tài khoản để lưu game yêu thích và đua top bảng xếp hạng nhé! 😎')">Đăng nhập / Đăng ký</button>
+           <div class="user-actions">
+    <div class="action-icon-btn notification-btn" onclick="showFooterInfo('Thông báo', 'Hiện tại bạn chưa có thông báo nào mới. Hãy tiếp tục chơi game để nhận phần thưởng nhé! 🎁')">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">1</span>
+    </div>
+    
+    <div class="action-icon-btn" onclick="showFooterInfo('Game Yêu Thích', 'Tính năng lưu game yêu thích đang được phát triển. Bạn hãy đăng nhập để sử dụng tính năng này trong thời gian tới nhé! ❤️')">
+        <i class="fas fa-heart"></i>
+    </div>
+    
+    <div class="action-icon-btn" onclick="openAuthModal()">
+        <i class="fas fa-user"></i>
+    </div>
+          <button class="login-btn animated-green-gradient" onclick="showFooterInfo('Đăng nhập / Đăng ký', 'Hệ thống tài khoản đang được xây dựng. Sắp tới bạn có thể tạo tài khoản để lưu game yêu thích và đua top bảng xếp hạng nhé! 😎')">Đăng nhập / Đăng ký</button>
             </div>
         </header>
 
