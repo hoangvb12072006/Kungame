@@ -1414,7 +1414,7 @@ document.addEventListener('click', (e) => {
 
                     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-                    <div id="custom-modal" class="modal-overlay">
+<div id="custom-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-header">
                 <h3 id="modal-title">Tiêu đề</h3>
@@ -1428,8 +1428,8 @@ document.addEventListener('click', (e) => {
             </div>
         </div>
     </div>
-                    
-                    <div id="auth-modal" class="modal-overlay">
+
+    <div id="auth-modal" class="modal-overlay">
         <div class="modal-box" style="max-width: 400px; padding: 30px; position: relative;">
             <button class="modal-close-btn" onclick="closeAuthModal()" style="position: absolute; top: 15px; right: 15px;"><i class="fas fa-times"></i></button>
             
@@ -1445,8 +1445,8 @@ document.addEventListener('click', (e) => {
                 <button class="auth-submit-btn animated-green-gradient" onclick="submitRealAuth('login')">ĐĂNG NHẬP</button>
             </div>
 
-            <div id="form-register" class="auth-form">
-                <input type="text" id="reg-username" placeholder="Tên đăng nhập (Viết liền không dấu)" class="auth-input">
+            <div id="form-register" class="auth-form" style="display: none;">
+                <input type="text" id="reg-username" placeholder="Tên đăng nhập (Không dấu, viết liền)" class="auth-input">
                 <input type="email" id="reg-email" placeholder="Email của bạn" class="auth-input">
                 <input type="password" id="reg-pass" placeholder="Mật khẩu" class="auth-input">
                 <button class="auth-submit-btn animated-green-gradient" onclick="submitRealAuth('register')">TẠO TÀI KHOẢN</button>
@@ -1462,36 +1462,9 @@ document.addEventListener('click', (e) => {
         </div>
     </div>
 
-                    <script> 
-                    // Hàm lọc game khi bấm vào thanh Slider ngang
-function filterBySlider(tag) {
-    const gameCards = document.querySelectorAll('.hero-card');
-    const sectionTitle = document.querySelector('h2');
-    
-    // Đổi tiêu đề 
-    sectionTitle.innerText = `Danh mục: ${tag}`;
-    
-    // Bỏ màu tím (active) ở menu bên trái vì ông đang xài menu ngang
-    document.querySelectorAll('.menu-list li').forEach(li => li.classList.remove('active'));
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    gameCards.forEach(card => {
-        const title = card.querySelector('.game-title-overlay').innerText;
-        const info = gameData[title];
-
-        // Lọc theo tag
-        if (info && info.tags.includes(tag)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-    // Tự động cuộn xuống dưới thanh slider một tí cho đẹp
-    window.scrollTo({ top: 300, behavior: 'smooth' });
-}
-          </script>           
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
     <script src="auth.js"></script>
