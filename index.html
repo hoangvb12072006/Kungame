@@ -569,26 +569,47 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             </a>
         </div>
 
-        <div class="sidebar-scroll">
-            <ul class="menu-list">
-                <li class="active"><i class="fas fa-home"></i> <span>Trang chủ</span></li>
-                <li><i class="fas fa-clock"></i> <span>Gần đây</span></li>
-                <li><i class="fas fa-star"></i> <span>Mới</span></li>
-                <li><i class="fas fa-fire"></i> <span>Xu hướng</span></li>
-                <li><i class="fas fa-sync-alt"></i> <span>Cập nhật</span></li>
-                <li><i class="fas fa-crown"></i> <span>Originals</span></li>
-                <li><i class="fas fa-users"></i> <span>Multiplayer</span></li>
-                <li><i class="fas fa-trophy"></i> <span>Bảng xếp hạng</span></li>
-            </ul>
-            <hr class="divider">
-            <ul class="menu-list">
-                <li><i class="fas fa-crosshairs"></i> <span>Bắn súng</span></li>
-                <li><i class="fas fa-car"></i> <span>Đua xe</span></li>
-                <li><i class="fas fa-futbol"></i> <span>Thể thao</span></li>
-                <li><i class="fas fa-ghost"></i> <span>Kinh dị</span></li>
-                <li><i class="fas fa-puzzle-piece"></i> <span>Giải đố</span></li>
-            </ul>
-        </div>
+       <div class="sidebar-scroll">
+    <ul class="menu-list" id="main-menu">
+        <li class="active" id="menu-home">
+            <i class="fas fa-home"></i> <span>Trang chủ</span>
+        </li>
+        <li id="menu-recent">
+            <i class="fas fa-clock"></i> <span>Gần đây</span>
+        </li>
+        <li id="menu-new">
+            <i class="fas fa-star"></i> <span>Mới</span>
+        </li>
+        <li id="menu-trending">
+            <i class="fas fa-fire"></i> <span>Xu hướng</span>
+        </li>
+        <li id="menu-updated">
+            <i class="fas fa-sync-alt"></i> <span>Cập nhật</span>
+        </li>
+        <li id="menu-originals">
+            <i class="fas fa-crown"></i> <span>Originals</span>
+        </li>
+        <li id="menu-multiplayer">
+            <i class="fas fa-users"></i> <span>Multiplayer</span>
+        </li>
+        <li id="menu-leaderboard">
+            <i class="fas fa-trophy"></i> <span>Bảng xếp hạng</span>
+        </li>
+    </ul>
+    
+    <hr class="divider">
+    
+    <ul class="menu-list" id="category-menu">
+        <li data-cat="Bắn súng"><i class="fas fa-crosshairs"></i> <span>Bắn súng</span></li>
+        <li data-cat="Đua xe"><i class="fas fa-car"></i> <span>Đua xe</span></li>
+        <li data-cat="Thể thao"><i class="fas fa-futbol"></i> <span>Thể thao</span></li>
+        <li data-cat="Kinh dị"><i class="fas fa-ghost"></i> <span>Kinh dị</span></li>
+        <li data-cat="Giải đố"><i class="fas fa-puzzle-piece"></i> <span>Giải đố</span></li>
+    </ul>
+</div>
+
+<script src="recent-games.js"></script>
+<script src="sidebar.js"></script>
 
         <div class="sidebar-footer">
             <button class="contact-btn">
