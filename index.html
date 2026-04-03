@@ -710,20 +710,20 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
                         <iframe id="gameFrame" src="" allowfullscreen="true" scrolling="no" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock" allow="autoplay; fullscreen; focus-without-user-activation *;" style="border: none; width: 100%; height: 100%;" onload="hideLoader()"></iframe>
                     </div>
                     
-                    <div class="game-toolbar">
-                        <div class="game-title">
-                            <img src="https://picsum.photos/50/50?random=99" style="width: 32px; height: 32px; border-radius: 8px;">
-                            <span id="currentGameTitle">Đang tải...</span>
+                   <div class="game-toolbar">
+                            <div class="game-title">
+                                <img src="" id="toolbarIcon" style="width: 32px; height: 32px; border-radius: 8px; display: none;">
+                                <span id="currentGameTitle">Đang tải...</span>
+                            </div>
+                            <div class="game-actions">
+                                <button class="action-btn" id="btn-like" onclick="toggleLike()"><i class="fas fa-thumbs-up"></i> <span id="like-count">130N</span></button>
+                                <button class="action-icon-btn" id="btn-dislike" onclick="toggleDislike()"><i class="fas fa-thumbs-down"></i></button>
+                                <button class="action-icon-btn" id="btn-heart" onclick="toggleHeart()"><i class="fas fa-heart"></i></button>
+                                <button class="action-icon-btn" onclick="shareGame()"><i class="fas fa-share-alt" title="Chia sẻ link"></i></button>
+                                <button class="action-icon-btn" onclick="toggleFullscreen()"><i class="fas fa-expand" title="Phóng to toàn màn hình"></i></button>
+                                <button class="action-icon-btn" onclick="goHome()" style="background: var(--alert-100);" title="Thoát Game"><i class="fas fa-times"></i></button>
+                            </div>
                         </div>
-                        <div class="game-actions">
-                            <button class="action-btn"><i class="fas fa-thumbs-up"></i> 130N</button>
-                            <button class="action-icon-btn"><i class="fas fa-thumbs-down"></i></button>
-                            <button class="action-icon-btn"><i class="fas fa-heart"></i></button>
-                            <button class="action-icon-btn"><i class="fas fa-share-alt"></i></button>
-                            <button class="action-icon-btn"><i class="fas fa-mobile-alt"></i></button>
-                            <button class="action-icon-btn" onclick="goHome()"><i class="fas fa-compress"></i></button>
-                        </div>
-                    </div>
 
                    <div class="game-details-container">
                         
@@ -884,7 +884,18 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
     document.getElementById('player-section').style.display = 'block';
 
     // 3. Cập nhật dữ liệu động cho đúng game
-    document.getElementById('gameFrame').src = url;
+    const gameFrame = document.getElementById('gameFrame');
+    gameFrame.src = url;
+
+    // --- HACK CĂN GIỮA RIÊNG CHO 1V1.LOL ---
+    if (title === '1v1.LOL') {
+        gameFrame.style.height = 'calc(100% + 180px)'; 
+        gameFrame.style.transform = 'translateY(-180px)';
+    } else {
+        gameFrame.style.height = '100%';
+        gameFrame.style.transform = 'none';
+    }
+    // --------------------------------------
     document.getElementById('currentGameTitle').innerText = title;
     document.getElementById('mainGameTitle').innerText = title;
 
@@ -924,6 +935,70 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
             if(loader) {
                 loader.style.opacity = '0';
                 loader.style.pointerEvents = 'none';
+            }
+        }
+
+        // =======================================================
+        // 6. CÁC CHỨC NĂNG TƯƠNG TÁC (LIKE, PHÓNG TO, CHIA SẺ...)
+        // =======================================================
+        
+        let isLiked = false;
+        let isDisliked = false;
+        let isHearted = false;
+
+        // Chức năng Like
+        function toggleLike() {
+            const btn = document.getElementById('btn-like');
+            const count = document.getElementById('like-count');
+            isLiked = !isLiked;
+            if (isLiked) {
+                btn.style.color = "var(--brand-100)";
+                count.innerText = "131N";
+                if (isDisliked) toggleDislike(); // Tắt dislike nếu đang bật
+            } else {
+                btn.style.color = "";
+                count.innerText = "130N";
+            }
+        }
+
+        // Chức năng Dislike
+        function toggleDislike() {
+            const btn = document.getElementById('btn-dislike');
+            isDisliked = !isDisliked;
+            btn.style.color = isDisliked ? "var(--alert-100)" : "";
+            if (isDisliked && isLiked) toggleLike(); // Tắt like nếu đang bật
+        }
+
+        // Chức năng Thả Tim
+        function toggleHeart() {
+            const btn = document.getElementById('btn-heart');
+            isHearted = !isHearted;
+            btn.style.color = isHearted ? "var(--alert-100)" : "";
+            btn.style.transform = isHearted ? "scale(1.2)" : "scale(1)";
+        }
+
+        // Chức năng Chia sẻ link
+        function shareGame() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("✅ Đã sao chép link! Hãy gửi cho bạn bè để cùng chơi nhé.");
+            });
+        }
+
+        // Chức năng Phóng to toàn màn hình (Fullscreen)
+        function toggleFullscreen() {
+            const gameBox = document.querySelector('.iframe-container');
+            if (!document.fullscreenElement) {
+                if (gameBox.requestFullscreen) {
+                    gameBox.requestFullscreen();
+                } else if (gameBox.webkitRequestFullscreen) { /* Safari */
+                    gameBox.webkitRequestFullscreen();
+                } else if (gameBox.msRequestFullscreen) { /* IE11 */
+                    gameBox.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
             }
         }
     </script>
