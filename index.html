@@ -637,39 +637,24 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
             <h2>Lựa chọn hàng đầu dành cho bạn</h2>
             <div class="hero-grid">
-   <div class="hero-card span-2x2" onclick="playGame('https://1v1lol-free.github.io/', '1v1.LOL')">
-        <img src="https://picsum.photos/seed/1v1/800/400" alt="1v1.LOL">
-        <div class="game-title-overlay">1v1.LOL (Bắn súng)</div>
-    </div>
-    
-    <div class="hero-card span-1x1" onclick="playGame('https://ubg100.github.io/games/moto-x3m/index.html', 'Moto X3M')">
-        <div class="badge badge-top"><i class="fas fa-star"></i> Top</div>
-        <img src="https://picsum.photos/seed/moto/400/300" alt="Moto X3M">
-        <div class="game-title-overlay">Moto X3M</div>
-    </div>
-    
-    <div class="hero-card span-1x1" onclick="playGame('https://ubg100.github.io/games/stickman-hook/index.html', 'Stickman Hook')">
-        <div class="badge badge-originals"><i class="fas fa-crown"></i> Originals</div>
-        <img src="https://picsum.photos/seed/stickman/400/300" alt="Stickman Hook">
-        <div class="game-title-overlay">Stickman Hook</div>
-    </div>
-    
-    <div class="hero-card span-1x1" onclick="playGame('https://ubg100.github.io/games/subway-surfers/index.html', 'Subway Surfers')">
-        <img src="https://picsum.photos/seed/subway/400/300" alt="Subway Surfers">
-        <div class="game-title-overlay">Subway Surfers</div>
-    </div>
-
-    <div class="hero-card span-1x1" onclick="playGame('https://ubg100.github.io/games/drift-hunters/index.html', 'Drift Hunters')">
-        <img src="https://picsum.photos/seed/drift/400/300" alt="Drift Hunters">
-        <div class="game-title-overlay">Drift Hunters</div>
-    </div>
-
-    <div class="hero-card span-2x2" onclick="playGame('https://ubg100.github.io/games/smash-karts/index.html', 'Smash Karts')">
-        <div class="badge badge-new"><i class="fas fa-bolt"></i> New</div>
-        <img src="https://picsum.photos/seed/karts/800/400" alt="Smash Karts">
-        <div class="game-title-overlay">Smash Karts (Đua xe bắn súng)</div>
-    </div>
+  <div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/16de13074932401f9f65f4023e586ab4/', 'Car Eats Car')">
+    <div class="badge badge-hot"><i class="fas fa-fire"></i> Hot</div>
+    <img src="https://img.gamedistribution.com/16de13074932401f9f65f4023e586ab4-512x384.jpeg" alt="Car Eats Car">
+    <div class="game-title-overlay">Car Eats Car</div>
 </div>
+
+<div class="hero-card span-1x1" onclick="playGame('https://html5.gamedistribution.com/334714f0c010454faf2248793ba893be/', 'Stick War Saga')">
+    <div class="badge badge-new"><i class="fas fa-bolt"></i> New</div>
+    <img src="https://img.gamedistribution.com/334714f0c010454faf2248793ba893be-512x384.jpg" alt="Stick War Saga">
+    <div class="game-title-overlay">Stick War Saga</div>
+</div>
+
+<div class="card" onclick="playGame('https://html5.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff/', 'Wave Dash')">
+    <div class="badge badge-updated"><i class="fas fa-sync-alt"></i> Skill</div>
+    <img src="https://img.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff-512x384.jpg" alt="Wave Dash">
+    <div class="game-title-overlay">Wave Dash</div>
+</div>
+                
             <h2>Trò chơi nổi bật</h2>
            <div class="standard-grid">
     <div class="card" onclick="playGame('https://ubg100.github.io/games/fruit-ninja/index.html', 'Fruit Ninja')">
@@ -864,31 +849,24 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
        function showGameInterface(url, title) {
     // 1. Dữ liệu chi tiết từng game (Bạn có thể thêm game vào đây)
    const gameData = {
-        '1v1.LOL': {
-            img: 'https://picsum.photos/seed/1v1/800/400',
-            desc: 'Trò chơi bắn súng sinh tồn góc nhìn thứ ba kết hợp xây dựng chiến thuật siêu cuốn!',
-            dev: 'JustPlay.LOL',
-            tags: ['Hành Động', '3D', 'Bắn Súng', 'Sinh Tồn']
+       'Car Eats Car': {
+            img: 'https://img.gamedistribution.com/16de13074932401f9f65f4023e586ab4-512x384.jpeg',
+            desc: 'Cuộc đua sinh tồn dưới đáy biển! Lái chiếc xe quái vật cá mập, nâng cấp vũ khí và tiêu diệt mọi kẻ thù ngáng đường.',
+            dev: 'SMOKOKO LTD',
+            tags: ['Đua Xe', 'Hành Động', 'Nâng Cấp']
         },
-        'Moto X3M': {
-            img: 'https://picsum.photos/seed/moto/400/300',
-            desc: 'Thực hiện những cú nhào lộn mạo hiểm trên chiếc mô tô địa hình qua hàng chục cấp độ đầy thử thách.',
-            dev: 'MadPuffers',
-            tags: ['Đua Xe', 'Vật Lý', 'Mạo Hiểm']
+        'Stick War Saga': {
+            img: 'https://img.gamedistribution.com/334714f0c010454faf2248793ba893be-512x384.jpg',
+            desc: 'Xây dựng đế chế người que, huấn luyện binh sĩ và tham gia vào những trận chiến quy mô lớn để chinh phục mọi vùng đất!',
+            dev: 'Max Games Studios',
+            tags: ['Chiến Thuật', 'Người Que', 'Hành Động']
         },
-        'Smash Karts': {
-            img: 'https://picsum.photos/seed/karts/800/400',
-            desc: 'Lái xe kart và nhặt vũ khí để tiêu diệt đối thủ trong đấu trường multiplayer hỗn loạn.',
-            dev: 'Tall Team',
-            tags: ['.io', 'Đua xe', 'Bắn súng']
+        'Wave Dash': {
+            img: 'https://img.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff-512x384.jpg',
+            desc: 'Điều khiển khối vuông vượt qua những làn sóng uốn lượn đầy thử thách. Đòi hỏi sự tập trung và phản xạ cực cao!',
+            dev: 'Noob Game Studio',
+            tags: ['Phản Xạ', 'Kỹ Năng', 'Vui Nhộn']
         },
-        'Subway Surfers': {
-            img: 'https://picsum.photos/seed/subway/400/300',
-            desc: 'Chạy trốn khỏi lão bảo vệ khó tính, né tránh tàu hỏa và thu thập tiền vàng trên những đường ray rực rỡ.',
-            dev: 'SYBO Games',
-            tags: ['Chạy Duy Trì', 'Vui Nhộn', 'Kỹ Năng']
-        }
-    };
            
     // 2. Các lệnh hiển thị giao diện cũ
     const loader = document.getElementById('game-loader');
@@ -898,19 +876,14 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
     document.getElementById('home-section').style.display = 'none';
     document.getElementById('player-section').style.display = 'block';
 
-    // 3. Cập nhật dữ liệu động cho đúng game
+   // 3. Cập nhật dữ liệu động cho đúng game
     const gameFrame = document.getElementById('gameFrame');
     gameFrame.src = url;
 
-    // --- HACK CĂN GIỮA RIÊNG CHO 1V1.LOL ---
-    if (title === '1v1.LOL') {
-        gameFrame.style.height = 'calc(100% + 180px)'; 
-        gameFrame.style.transform = 'translateY(-180px)';
-    } else {
-        gameFrame.style.height = '100%';
-        gameFrame.style.transform = 'none';
-    }
-    // --------------------------------------
+    // Reset lại style chuẩn để game tự co giãn khít khung hình
+    gameFrame.style.height = '100%';
+    gameFrame.style.transform = 'none';
+
     document.getElementById('currentGameTitle').innerText = title;
     document.getElementById('mainGameTitle').innerText = title;
 
