@@ -848,25 +848,26 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
        function showGameInterface(url, title) {
     // 1. Dữ liệu chi tiết từng game (Bạn có thể thêm game vào đây)
-   const gameData = {
-       'Car Eats Car': {
-            img: 'https://img.gamedistribution.com/16de13074932401f9f65f4023e586ab4-512x384.jpeg',
-            desc: 'Cuộc đua sinh tồn dưới đáy biển! Lái chiếc xe quái vật cá mập, nâng cấp vũ khí và tiêu diệt mọi kẻ thù ngáng đường.',
-            dev: 'SMOKOKO LTD',
-            tags: ['Đua Xe', 'Hành Động', 'Nâng Cấp']
-        },
-        'Stick War Saga': {
-            img: 'https://img.gamedistribution.com/334714f0c010454faf2248793ba893be-512x384.jpg',
-            desc: 'Xây dựng đế chế người que, huấn luyện binh sĩ và tham gia vào những trận chiến quy mô lớn để chinh phục mọi vùng đất!',
-            dev: 'Max Games Studios',
-            tags: ['Chiến Thuật', 'Người Que', 'Hành Động']
-        },
-        'Wave Dash': {
-            img: 'https://img.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff-512x384.jpg',
-            desc: 'Điều khiển khối vuông vượt qua những làn sóng uốn lượn đầy thử thách. Đòi hỏi sự tập trung và phản xạ cực cao!',
-            dev: 'Noob Game Studio',
-            tags: ['Phản Xạ', 'Kỹ Năng', 'Vui Nhộn']
-        },
+ const gameData = {
+            'Car Eats Car': {
+                img: 'https://img.gamedistribution.com/16de13074932401f9f65f4023e586ab4-512x384.jpeg',
+                desc: 'Cuộc đua sinh tồn dưới đáy biển! Lái chiếc xe quái vật cá mập, nâng cấp vũ khí và tiêu diệt mọi kẻ thù ngáng đường.',
+                dev: 'SMOKOKO LTD',
+                tags: ['Đua Xe', 'Hành Động', 'Nâng Cấp']
+            },
+            'Stick War Saga': {
+                img: 'https://img.gamedistribution.com/334714f0c010454faf2248793ba893be-512x384.jpg',
+                desc: 'Xây dựng đế chế người que, huấn luyện binh sĩ và tham gia vào những trận chiến quy mô lớn để chinh phục mọi vùng đất!',
+                dev: 'Max Games Studios',
+                tags: ['Chiến Thuật', 'Người Que', 'Hành Động']
+            },
+            'Wave Dash': {
+                img: 'https://img.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff-512x384.jpg',
+                desc: 'Điều khiển khối vuông vượt qua những làn sóng uốn lượn đầy thử thách. Đòi hỏi sự tập trung và phản xạ cực cao!',
+                dev: 'Noob Game Studio',
+                tags: ['Phản Xạ', 'Kỹ Năng', 'Vui Nhộn']
+            }
+        }; // Kết thúc bằng dấu này mới đúng
            
     // 2. Các lệnh hiển thị giao diện cũ
     const loader = document.getElementById('game-loader');
