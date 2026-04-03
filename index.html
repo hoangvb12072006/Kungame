@@ -893,165 +893,202 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
     </main>
 
-    <script>
-        // 1. Lắng nghe sự kiện khi web vừa tải xong hoặc khi đường link thay đổi (Chống F5 văng game)
-        window.addEventListener('DOMContentLoaded', checkUrlState);
-        window.addEventListener('hashchange', checkUrlState);
-
-        function checkUrlState() {
-            const hash = window.location.hash;
-            if (hash.startsWith('#play&')) {
-                const params = new URLSearchParams(hash.replace('#play&', ''));
-                const url = decodeURIComponent(params.get('url'));
-                const title = decodeURIComponent(params.get('title'));
-                showGameInterface(url, title);
-            } else {
-                showHomeInterface();
-            }
+   <script>
+    // 1. DỮ LIỆU TỔNG HỢP (Đưa lên đầu để mọi hàm đều dùng được)
+    const gameData = {
+        'Moto X3M': {
+            img: 'https://imgs.crazygames.com/moto-x3m_1x1/20231122033955/moto-x3m_1x1-cover?format=auto&quality=100&width=600',
+            desc: 'Trò chơi đua xe mô tô địa hình huyền thoại với 22 cấp độ thử thách và những pha nhào lộn thót tim.',
+            dev: 'MadPuffers',
+            tags: ['Đua Xe', 'Mạo Hiểm', 'Vật Lý']
+        },
+        '8 Ball Billiards': {
+            img: 'https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2023/01/8-ball-bool-00.jpg',
+            desc: 'Trò chơi bida lỗ 8 bóng cổ điển. Thể hiện kỹ năng điều cơ và tính toán góc độ để đánh bại đối thủ.',
+            dev: 'Famobi',
+            tags: ['Thể Thao', 'Trí Tuệ', 'Bida']
+        },
+        'Om Nom Run': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/OmNomRunTeaser.jpg',
+            desc: 'Chạy đua cùng Om Nom qua những con phố đầy chướng ngại vật, thu thập tiền vàng và mở khóa nhân vật.',
+            dev: 'ZeptoLab',
+            tags: ['Chạy Vô Tận', 'Hành Động', '3D']
+        },
+        'Tower Crash 3D': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/TowerCrash3dTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Phá hủy những tòa tháp rực rỡ bằng những quả bóng cùng màu. Trò chơi xả stress cực tốt!',
+            dev: 'Famobi',
+            tags: ['Giải Đố', '3D', 'Xả Stress']
+        },
+        'Gold Mine': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/GoldMineTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Hóa thân thành thợ đào vàng chuyên nghiệp, khéo léo kéo những cục vàng to lớn và kim cương quý giá.',
+            dev: 'Famobi',
+            tags: ['Cổ Điển', 'Vui Nhộn', 'Kỹ Năng']
+        },
+        'Endless Truck': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/EndlessTruckTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Lái xe tải quái vật vượt địa hình, thực hiện những cú nhào lộn để kiếm thêm tiền nâng cấp xe.',
+            dev: 'Famobi',
+            tags: ['Đua Xe', '3D', 'Monster Truck']
+        },
+        'Solitaire Klondike': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/SolitaireKlondikeTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Trò chơi xếp bài tây cổ điển giúp rèn luyện sự kiên nhẫn và tư duy logic.',
+            dev: 'Famobi',
+            tags: ['Thẻ Bài', 'Trí Tuệ', 'Văn Phòng']
+        },
+        '3D Free Kick': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/3dFreeKickTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Sút phạt đền trong không gian 3D chân thực. Hãy ghi càng nhiều bàn thắng càng tốt để lập kỷ lục!',
+            dev: 'Famobi',
+            tags: ['Bóng Đá', 'Thể Thao', '3D']
+        },
+        'Garden Bloom': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/GardenBloomTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Trò chơi xếp kim cương phong cách hoa cỏ rực rỡ với hàng trăm cấp độ hấp dẫn.',
+            dev: 'Famobi',
+            tags: ['Xếp Hình', 'Puzzle', 'Thư Giãn']
+        },
+        'Who Dies Last': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/WhoDiesLastTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Dự đoán xem ai sẽ là người sống sót cuối cùng trong những tình huống oái oăm nhất.',
+            dev: 'Famobi',
+            tags: ['Giải Đố', 'Xu Hướng', 'Vui Nhộn']
+        },
+        'Fun Race 3D': {
+            img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/FunRace3dTeaser.jpg?v=0.2-6b1f34f6',
+            desc: 'Cuộc đua Parkour đầy màu sắc. Tránh các chướng ngại vật di động và về đích đầu tiên.',
+            dev: 'Famobi',
+            tags: ['Parkour', 'Đua Xe', '3D']
         }
-
-        // 2. Hàm khi bấm vào thẻ game
-        function playGame(url, title) {
-            const safeUrl = encodeURIComponent(url);
-            const safeTitle = encodeURIComponent(title);
-            window.location.hash = `play&url=${safeUrl}&title=${safeTitle}`;
-        }
-
-        // 3. Hàm khi bấm nút Thoát
-        function goHome() {
-            window.location.hash = ''; 
-        }
-
-     // 1. Dữ liệu chi tiết từng game (Tổng hợp 11 game)
-        const gameData = {
-            'Moto X3M': {
-                img: 'https://imgs.crazygames.com/moto-x3m_1x1/20231122033955/moto-x3m_1x1-cover?format=auto&quality=100&width=600',
-                desc: 'Trò chơi đua xe mô tô địa hình huyền thoại với 22 cấp độ thử thách và những pha nhào lộn thót tim.',
-                dev: 'MadPuffers',
-                tags: ['Đua Xe', 'Mạo Hiểm', 'Vật Lý']
-            },
-            '8 Ball Billiards': {
-                img: 'https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2023/01/8-ball-bool-00.jpg',
-                desc: 'Trò chơi bida lỗ 8 bóng cổ điển. Thể hiện kỹ năng điều cơ và tính toán góc độ để đánh bại đối thủ.',
-                dev: 'Famobi',
-                tags: ['Thể Thao', 'Trí Tuệ', 'Bida']
-            },
-            'Om Nom Run': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/OmNomRunTeaser.jpg',
-                desc: 'Chạy đua cùng Om Nom qua những con phố đầy chướng ngại vật, thu thập tiền vàng và mở khóa nhân vật.',
-                dev: 'ZeptoLab',
-                tags: ['Chạy Vô Tận', 'Hành Động', '3D']
-            },
-            'Tower Crash 3D': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/TowerCrash3dTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Phá hủy những tòa tháp rực rỡ bằng những quả bóng cùng màu. Trò chơi xả stress cực tốt!',
-                dev: 'Famobi',
-                tags: ['Giải Đố', '3D', 'Xả Stress']
-            },
-            'Gold Mine': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/GoldMineTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Hóa thân thành thợ đào vàng chuyên nghiệp, khéo léo kéo những cục vàng to lớn và kim cương quý giá.',
-                dev: 'Famobi',
-                tags: ['Cổ Điển', 'Vui Nhộn', 'Kỹ Năng']
-            },
-            'Endless Truck': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/EndlessTruckTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Lái xe tải quái vật vượt địa hình, thực hiện những cú nhào lộn để kiếm thêm tiền nâng cấp xe.',
-                dev: 'Famobi',
-                tags: ['Đua Xe', '3D', 'Monster Truck']
-            },
-            'Solitaire Klondike': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/SolitaireKlondikeTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Trò chơi xếp bài tây cổ điển giúp rèn luyện sự kiên nhẫn và tư duy logic.',
-                dev: 'Famobi',
-                tags: ['Thẻ Bài', 'Trí Tuệ', 'Văn Phòng']
-            },
-            '3D Free Kick': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/3dFreeKickTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Sút phạt đền trong không gian 3D chân thực. Hãy ghi càng nhiều bàn thắng càng tốt để lập kỷ lục!',
-                dev: 'Famobi',
-                tags: ['Bóng Đá', 'Thể Thao', '3D']
-            },
-            'Garden Bloom': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/GardenBloomTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Trò chơi xếp kim cương phong cách hoa cỏ rực rỡ với hàng trăm cấp độ hấp dẫn.',
-                dev: 'Famobi',
-                tags: ['Xếp Hình', 'Puzzle', 'Thư Giãn']
-            },
-            'Who Dies Last': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/WhoDiesLastTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Dự đoán xem ai sẽ là người sống sót cuối cùng trong những tình huống oái oăm nhất.',
-                dev: 'Famobi',
-                tags: ['Giải Đố', 'Xu Hướng', 'Vui Nhộn']
-            },
-            'Fun Race 3D': {
-                img: 'https://img.cdn.famobi.com/portal/html5games/images/tmp/FunRace3dTeaser.jpg?v=0.2-6b1f34f6',
-                desc: 'Cuộc đua Parkour đầy màu sắc. Tránh các chướng ngại vật di động và về đích đầu tiên.',
-                dev: 'Famobi',
-                tags: ['Parkour', 'Đua Xe', '3D']
-            }
-        }; // Kết thúc danh sách
-           
-    // 2. Các lệnh hiển thị giao diện cũ
-    const loader = document.getElementById('game-loader');
-    if(loader) { loader.style.opacity = '1'; loader.style.pointerEvents = 'auto'; }
-    document.getElementById('main-sidebar').classList.add('collapsed');
-    document.getElementById('main-content').classList.add('expanded');
-    document.getElementById('home-section').style.display = 'none';
-    document.getElementById('player-section').style.display = 'block';
-
-   // 3. Cập nhật dữ liệu động cho đúng game
-    const gameFrame = document.getElementById('gameFrame');
-    gameFrame.src = url;
-
-    // Reset lại style chuẩn để game tự co giãn khít khung hình
-    gameFrame.style.height = '100%';
-    gameFrame.style.transform = 'none';
-
-    document.getElementById('currentGameTitle').innerText = title;
-    document.getElementById('mainGameTitle').innerText = title;
-
-    // Kiểm tra xem game có trong danh sách dữ liệu không để đổi mô tả
-    const info = gameData[title] || { 
-        img: 'https://picsum.photos/300/400', 
-        desc: 'Trò chơi hấp dẫn trên Kun Game Center. Hãy trải nghiệm ngay!', 
-        dev: 'Hoangkun Studio',
-        tags: ['Game', 'Hot']
     };
 
-    document.getElementById('posterImg').src = info.img;
-           document.getElementById('toolbarIcon').src = info.img;
-document.getElementById('toolbarIcon').style.display = 'block';
-    document.getElementById('gameDescText').innerText = info.desc;
-    document.getElementById('devName').innerText = info.dev;
+    // 2. XỬ LÝ LOGIC CHUYỂN TRANG
+    window.addEventListener('DOMContentLoaded', checkUrlState);
+    window.addEventListener('hashchange', checkUrlState);
 
-    // Tự động tạo các nút tag
-    const tagBox = document.getElementById('gameTags');
-    tagBox.innerHTML = ''; // Xóa tag cũ
-    info.tags.forEach(t => {
-        tagBox.innerHTML += `<div class="tag-chip">${t}</div>`;
-    });
-
-    window.scrollTo(0, 0);
-}
-
-        function showHomeInterface() {
-            document.getElementById('main-sidebar').classList.remove('collapsed');
-            document.getElementById('main-content').classList.remove('expanded');
-            document.getElementById('home-section').style.display = 'block';
-            document.getElementById('player-section').style.display = 'none';
-            document.getElementById('gameFrame').src = '';
+    function checkUrlState() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#play&')) {
+            const params = new URLSearchParams(hash.replace('#play&', ''));
+            const url = decodeURIComponent(params.get('url'));
+            const title = decodeURIComponent(params.get('title'));
+            showGameInterface(url, title);
+        } else {
+            showHomeInterface();
         }
+    }
 
-        // 5. Tắt màn hình đen khi game load xong
-        function hideLoader() {
-            const loader = document.getElementById('game-loader');
-            if(loader) {
-                loader.style.opacity = '0';
-                loader.style.pointerEvents = 'none';
-            }
+    function playGame(url, title) {
+        const safeUrl = encodeURIComponent(url);
+        const safeTitle = encodeURIComponent(title);
+        window.location.hash = `play&url=${safeUrl}&title=${safeTitle}`;
+        window.scrollTo(0, 0);
+    }
+
+    function goHome() {
+        window.location.hash = ''; 
+    }
+
+    function showGameInterface(url, title) {
+        // Hiển thị Loader
+        const loader = document.getElementById('game-loader');
+        if(loader) { loader.style.opacity = '1'; loader.style.pointerEvents = 'auto'; }
+
+        // Chuyển đổi giao diện
+        document.getElementById('main-sidebar').classList.add('collapsed');
+        document.getElementById('main-content').classList.add('expanded');
+        document.getElementById('home-section').style.display = 'none';
+        document.getElementById('player-section').style.display = 'block';
+
+        // Gán link game
+        const gameFrame = document.getElementById('gameFrame');
+        gameFrame.src = url;
+
+        // Cập nhật tiêu đề
+        document.getElementById('currentGameTitle').innerText = title;
+        document.getElementById('mainGameTitle').innerText = title;
+        document.getElementById('descTitle').innerText = title;
+        document.getElementById('breadcrumbTitleDesc').innerText = title;
+
+        // Lấy dữ liệu game
+        const info = gameData[title] || { 
+            img: 'https://picsum.photos/300/400', 
+            desc: 'Trò chơi hấp dẫn trên Kun Game Center. Hãy trải nghiệm ngay!', 
+            dev: 'Hoangkun Studio',
+            tags: ['Game', 'Hot']
+        };
+
+        // Đổ dữ liệu vào giao diện
+        document.getElementById('posterImg').src = info.img;
+        document.getElementById('toolbarIcon').src = info.img;
+        document.getElementById('toolbarIcon').style.display = 'block';
+        document.getElementById('gameDescText').innerText = info.desc;
+        document.getElementById('devName').innerText = info.dev;
+
+        // Tạo Tags
+        const tagBox = document.getElementById('gameTags');
+        if(tagBox) {
+            tagBox.innerHTML = '';
+            info.tags.forEach(t => {
+                tagBox.innerHTML += `<div class="tag-chip">${t}</div>`;
+            });
         }
+        window.scrollTo(0, 0);
+    }
 
+    function showHomeInterface() {
+        document.getElementById('main-sidebar').classList.remove('collapsed');
+        document.getElementById('main-content').classList.remove('expanded');
+        document.getElementById('home-section').style.display = 'block';
+        document.getElementById('player-section').style.display = 'none';
+        document.getElementById('gameFrame').src = '';
+    }
+
+    function hideLoader() {
+        const loader = document.getElementById('game-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            loader.style.pointerEvents = 'none';
+        }
+    }
+
+    // 3. TƯƠNG TÁC LIKE/HEART
+    let isLiked = false, isDisliked = false, isHearted = false;
+    function toggleLike() {
+        const btn = document.getElementById('btn-like');
+        const count = document.getElementById('like-count');
+        isLiked = !isLiked;
+        btn.style.color = isLiked ? "var(--brand-100)" : "";
+        count.innerText = isLiked ? "131N" : "130N";
+        if (isLiked && isDisliked) toggleDislike();
+    }
+    function toggleDislike() {
+        const btn = document.getElementById('btn-dislike');
+        isDisliked = !isDisliked;
+        btn.style.color = isDisliked ? "var(--alert-100)" : "";
+        if (isDisliked && isLiked) toggleLike();
+    }
+    function toggleHeart() {
+        const btn = document.getElementById('btn-heart');
+        isHearted = !isHearted;
+        btn.style.color = isHearted ? "var(--alert-100)" : "";
+        btn.style.transform = isHearted ? "scale(1.2)" : "scale(1)";
+    }
+    function shareGame() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert("✅ Đã sao chép link!");
+        });
+    }
+    function toggleFullscreen() {
+        const gameBox = document.querySelector('.iframe-container');
+        if (!document.fullscreenElement) {
+            gameBox.requestFullscreen().catch(err => alert("Lỗi: " + err.message));
+        } else {
+            document.exitFullscreen();
+        }
+    }
         // =======================================================
         // 6. CÁC CHỨC NĂNG TƯƠNG TÁC (LIKE, PHÓNG TO, CHIA SẺ...)
         // =======================================================
