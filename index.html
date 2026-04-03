@@ -520,7 +520,35 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
         .suggested-card { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.2s; border: 2px solid transparent; background: var(--black-70); }
         .suggested-card:hover { border-color: var(--brand-100); transform: scale(1.03); }
         .suggested-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        
+
+        /* 1. Phóng to toàn bộ khu vực chứa game */
+.main-game-area {
+    padding: 10px !important; /* Giảm đệm để game to ra sát lề */
+    max-width: 1200px; /* Độ rộng tối đa để chơi cho sướng */
+    margin: 0 auto;
+}
+
+/* 2. Ép khung iframe khít tỉ lệ màn hình game */
+.iframe-container { 
+    position: relative; 
+    width: 100%; 
+    /* Thay 75vh bằng tỉ lệ 16:9 tự động hoặc tăng lên 85vh */
+    height: 0;
+    padding-bottom: 56.25%; /* Đây là tỉ lệ 16:9 chuẩn quốc tế */
+    background: #000; 
+    border-radius: 12px; 
+    overflow: hidden; 
+}
+
+/* 3. Đảm bảo iframe lấp đầy cái khung 16:9 ở trên */
+#gameFrame { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100% !important; 
+    height: 100% !important; 
+    border: none; 
+}
     </style>
 </head>
 <body>
