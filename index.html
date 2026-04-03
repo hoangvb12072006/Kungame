@@ -438,8 +438,21 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
         
         /* Box chứa Game (Hộp đen) */
         .game-player-box { background: var(--black-80); border-radius: 16px; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
-        .iframe-container { position: relative; width: 100%; height: 75vh; background: var(--black-90); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        #gameFrame { width: 100%; height: 100%; border: none; }
+       /* KHUNG GAME CO GIÃN THÔNG MINH (CHUẨN 16:9) */
+        .iframe-container { 
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 16 / 9; /* Bí quyết là đây: Ép tỷ lệ luôn luôn là 16:9 */
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden; 
+        }
+        #gameFrame { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border: none; 
+        }
         
         .game-toolbar { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-top: 15px; padding: 12px 20px; background: var(--black-80); border-radius: 12px; width: 100%; box-sizing: border-box; }
         .game-title { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; color: var(--white-100); white-space: nowrap; }
