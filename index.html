@@ -721,37 +721,37 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
         <section id="home-section">
             
           <div class="category-slider">
-    <div class="cat-card" style="background: linear-gradient(135deg, #1d5657, #154a6f);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #1d5657, #154a6f);" onclick="filterBySlider('Nhiều người chơi')">
         <div class="cat-text">Chơi cùng bạn bè</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/People%20with%20Bunny%20Ears.png" class="cat-icon" alt="">
     </div>
 
-    <div class="cat-card" style="background: linear-gradient(135deg, #58522c, #604230);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #58522c, #604230);" onclick="filterBySlider('Vui nhộn')">
         <div class="cat-text">5 phút vui vẻ</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food%20Drink/Hot%20Beverage.png" class="cat-icon" alt="">
     </div>
 
-    <div class="cat-card" style="background: linear-gradient(135deg, #154a6f, #191e5d);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #154a6f, #191e5d);" onclick="filterBySlider('Giải đố')">
         <div class="cat-text">Rèn luyện trí não</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Light%20Bulb.png" class="cat-icon" alt="">
     </div>
 
-    <div class="cat-card" style="background: linear-gradient(135deg, #2e6136, #1d5657);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #2e6136, #1d5657);" onclick="filterBySlider('Crazy')">
         <div class="cat-text">Meme & Bloxy</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Grinning%20Squinting%20Face.png" class="cat-icon" alt="">
     </div>
 
-    <div class="cat-card" style="background: linear-gradient(135deg, #800e13, #640d14);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #800e13, #640d14);" onclick="filterBySlider('Hành động')">
         <div class="cat-text">Hành động kịch tính</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Firecracker.png" class="cat-icon" alt="">
     </div>
     
-    <div class="cat-card" style="background: linear-gradient(135deg, #3c096c, #5a189a);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #3c096c, #5a189a);" onclick="filterBySlider('3D')">
         <div class="cat-text">Thế giới ảo</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Video%20Game.png" class="cat-icon" alt="">
     </div>
 
-    <div class="cat-card" style="background: linear-gradient(135deg, #2D5A27, #1E3F1A);">
+    <div class="cat-card" style="background: linear-gradient(135deg, #2D5A27, #1E3F1A);" onclick="filterBySlider('Thể thao')">
         <div class="cat-text">Thể thao 24h</div>
         <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Soccer%20Ball.png" class="cat-icon" alt="">
     </div>
@@ -1407,6 +1407,35 @@ document.addEventListener('click', (e) => {
             </div>
         </div>
     </div>
+
+                    <script> 
+                    // Hàm lọc game khi bấm vào thanh Slider ngang
+function filterBySlider(tag) {
+    const gameCards = document.querySelectorAll('.hero-card');
+    const sectionTitle = document.querySelector('h2');
+    
+    // Đổi tiêu đề 
+    sectionTitle.innerText = `Danh mục: ${tag}`;
+    
+    // Bỏ màu tím (active) ở menu bên trái vì ông đang xài menu ngang
+    document.querySelectorAll('.menu-list li').forEach(li => li.classList.remove('active'));
+
+    gameCards.forEach(card => {
+        const title = card.querySelector('.game-title-overlay').innerText;
+        const info = gameData[title];
+
+        // Lọc theo tag
+        if (info && info.tags.includes(tag)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Tự động cuộn xuống dưới thanh slider một tí cho đẹp
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+}
+          </script>           
                     
 </body>
 </html>
