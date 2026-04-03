@@ -118,3 +118,13 @@ function submitRealAuth(type) {
         });
     }
 }
+
+// Bấm ra vùng đen bên ngoài thì tự tắt form
+document.addEventListener('DOMContentLoaded', () => {
+    const authModal = document.getElementById('auth-modal');
+    if(authModal) {
+        authModal.addEventListener('click', function(e) {
+            if (e.target === this) closeAuthModal();
+        });
+    }
+});
