@@ -1562,18 +1562,19 @@ document.addEventListener('click', (e) => {
 
 function updateUIAfterLogin(name) {
     currentLoggedUser = name;
+    // Ghi nhớ vào trình duyệt
+    localStorage.setItem('kunGameUser', name); 
+
     const loginBtn = document.querySelector('.login-btn');
     if (loginBtn) {
         loginBtn.innerText = name;
         loginBtn.onclick = function() {
-            database.ref('users/' + name).once('value').then((snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    document.getElementById('prof-name').innerText = name;
-                    document.getElementById('prof-email').innerText = data.email || "Đăng nhập Google";
-                    document.getElementById('change-pass-area').style.display = data.password ? 'block' : 'none';
-                    document.getElementById('profile-modal').classList.add('show');
-                }
+            database.ref('users/' + name.replace(/\./g, '_')).once('value').then((snapshot) => {
+                const data = snapshot.val() || {};
+                document.getElementById('prof-name').innerText = name;
+                document.getElementById('prof-email').innerText = data.email || "Liên kết Google";
+                document.getElementById('change-pass-area').style.display = (data.password) ? 'block' : 'none';
+                document.getElementById('profile-modal').classList.add('show');
             });
         };
     }
