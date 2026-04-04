@@ -1659,6 +1659,21 @@ function changeUserPassword() {
             const modal = document.getElementById('auth-modal');
             if (e.target === modal) closeAuthModal();
         });
+
+        // Khi vừa mở web, kiểm tra xem trước đó đã đăng nhập chưa
+document.addEventListener('DOMContentLoaded', () => {
+    const savedUser = localStorage.getItem('kunGameUser');
+    if (savedUser) {
+        // Nếu có tên đã lưu thì tự động hiển thị lên nút luôn
+        updateUIAfterLogin(savedUser);
+    }
+});
+
+// Sửa lại nút Đăng xuất để xóa sạch bộ nhớ khi thoát
+function logout() {
+    localStorage.removeItem('kunGameUser'); // Xóa tên đã lưu
+    location.reload(); // Load lại web
+}
     </script>
                               
 </body>
