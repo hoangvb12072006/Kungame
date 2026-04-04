@@ -1120,6 +1120,29 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 
     </main>
 
+                    <div id="profile-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3 style="color: var(--brand-100);">HỒ SƠ CỦA BẠN</h3>
+            <button class="modal-close-btn" onclick="document.getElementById('profile-modal').classList.remove('show')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" style="font-weight: 700;">
+            <div style="background: var(--black-60); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                <p style="margin: 5px 0;">👤 Tên: <span id="prof-name" style="color: var(--brand-100);">---</span></p>
+                <p style="margin: 5px 0;">📧 Email: <span id="prof-email" style="color: var(--white-100); font-size: 14px;">---</span></p>
+            </div>
+            <div id="change-pass-area" style="border-top: 1px solid var(--black-60); padding-top: 15px;">
+                <p style="font-size: 14px; margin-bottom: 10px; color: var(--white-50);">🔑 Đổi mật khẩu mới:</p>
+                <input type="password" id="new-password" placeholder="Mật khẩu mới" class="auth-input">
+                <button class="auth-submit-btn animated-green-gradient" onclick="changeUserPassword()" style="margin-top: 5px;">CẬP NHẬT MẬT KHẨU</button>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+            <button class="modal-ok-btn" onclick="location.reload()" style="background: var(--alert-100); width: 100%;">ĐĂNG XUẤT</button>
+        </div>
+    </div>
+</div>
+                    
   <script>
    const gameData = {
     // --- 11 GAME GỐC ---
@@ -1535,24 +1558,39 @@ document.addEventListener('click', (e) => {
             document.getElementById('form-register').style.display = (tab === 'register') ? 'block' : 'none';
         }
 
-        // 3. Hàm cập nhật trạng thái sau khi đăng nhập (Quan trọng)
-        function updateUIAfterLogin(name) {
-            const loginBtn = document.querySelector('.login-btn');
-            if (loginBtn) {
-                loginBtn.innerText = name;
-                // Thay đổi hành động: Bấm vào tên để Đăng xuất
-                loginBtn.onclick = function() {
-                    if(confirm(`Chào ${name}! Bạn có muốn đăng xuất không?`)) {
-                        location.reload(); // Reload để xoá trạng thái
-                    }
-                };
-            }
-            // Đổi lệnh cho icon người dùng nếu có
-            const userIconBtn = document.querySelector('.action-icon-btn i.fa-user')?.parentElement;
-            if (userIconBtn) {
-                userIconBtn.onclick = () => showFooterInfo('Tài khoản', `Chào sếp ${name}!`);
-            }
-        }
+       let currentLoggedUser = "";
+
+function updateUIAfterLogin(name) {
+    currentLoggedUser = name;
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.innerText = name;
+        loginBtn.onclick = function() {
+            database.ref('users/' + name).once('value').then((snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    document.getElementById('prof-name').innerText = name;
+                    document.getElementById('prof-email').innerText = data.email || "Đăng nhập Google";
+                    document.getElementById('change-pass-area').style.display = data.password ? 'block' : 'none';
+                    document.getElementById('profile-modal').classList.add('show');
+                }
+            });
+        };
+    }
+}
+
+function changeUserPassword() {
+    const newPass = document.getElementById('new-password').value.trim();
+    if (newPass.length < 6) { alert("Mật khẩu phải từ 6 ký tự sếp ơi!"); return; }
+    if (confirm("Xác nhận đổi mật khẩu?")) {
+        database.ref('users/' + currentLoggedUser).update({ password: newPass })
+        .then(() => {
+            alert("✅ Đã đổi mật khẩu thành công!");
+            document.getElementById('new-password').value = "";
+            document.getElementById('profile-modal').classList.remove('show');
+        });
+    }
+}
 
         // 4. Xử lý Đăng ký / Đăng nhập (Dùng được cả Email & Username)
         function submitRealAuth(type) {
