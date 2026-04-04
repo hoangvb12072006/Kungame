@@ -1,4 +1,6 @@
-// 1. Cấu hình Firebase
+// ==========================================
+// 1. CẤU HÌNH FIREBASE (HOÀNG KUN)
+// ==========================================
 const firebaseConfig = {
     apiKey: "AIzaSyBah5iEPTSOfavvq7g2e6mvRErSxTpztQw",
     authDomain: "kungame-470cd.firebaseapp.com",
@@ -15,8 +17,11 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 const database = firebase.database();
+const auth = firebase.auth();
 
-// 2. Các hàm điều khiển giao diện Form
+// ==========================================
+// 2. ĐIỀU KHIỂN GIAO DIỆN FORM
+// ==========================================
 function openAuthModal() {
     document.getElementById('auth-modal').classList.add('show');
 }
@@ -26,11 +31,13 @@ function closeAuthModal() {
 }
 
 function switchAuthTab(tab) {
-    document.getElementById('tab-login').classList.remove('active');
-    document.getElementById('tab-register').classList.remove('active');
-    document.getElementById('form-login').style.display = 'none';
-    document.getElementById('form-register').style.display = 'none';
+    const tabs = ['tab-login', 'tab-register'];
+    const forms = ['form-login', 'form-register'];
     
+    tabs.forEach(t => document.getElementById(t).classList.remove('active'));
+    forms.forEach(f => document.getElementById(f).classList.remove('active'));
+    forms.forEach(f => document.getElementById(f).style.display = 'none');
+
     if(tab === 'login') {
         document.getElementById('tab-login').classList.add('active');
         document.getElementById('form-login').style.display = 'block';
@@ -40,17 +47,31 @@ function switchAuthTab(tab) {
     }
 }
 
-// Bấm ra vùng đen bên ngoài thì tự tắt form
-document.addEventListener('DOMContentLoaded', () => {
-    const authModal = document.getElementById('auth-modal');
-    if(authModal) {
-        authModal.addEventListener('click', function(e) {
-            if (e.target === this) closeAuthModal();
-        });
+// ==========================================
+// 3. XỬ LÝ SAU KHI ĐĂNG NHẬP THÀNH CÔNG
+// ==========================================
+function updateUIAfterLogin(name) {
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.innerText = name;
+        // Đổi lệnh onclick: Click vào tên thì hiện Menu tài khoản/Đăng xuất
+        loginBtn.onclick = function() {
+            if(confirm(`Chào ${name}! Bạn có muốn đăng xuất không?`)) {
+                location.reload(); // Reload để reset trạng thái
+            }
+        };
     }
-});
+    
+    // Đổi lệnh cho icon hình người luôn
+    const userIconBtn = document.querySelector('.action-icon-btn i.fa-user')?.parentElement;
+    if (userIconBtn) {
+        userIconBtn.onclick = () => showFooterInfo('Tài khoản', `Hồ sơ của ${name} đang được cập nhật thêm tính năng! 😎`);
+    }
+}
 
-// 3. Hàm Xử lý Đăng ký / Đăng nhập thật lên Firebase
+// ==========================================
+// 4. XỬ LÝ ĐĂNG KÝ / ĐĂNG NHẬP (FIREBASE)
+// ==========================================
 function submitRealAuth(type) {
     if (type === 'register') {
         const username = document.getElementById('reg-username').value.trim();
@@ -62,69 +83,69 @@ function submitRealAuth(type) {
             return;
         }
 
-        // Đẩy dữ liệu lên bảng 'users' trong Firebase
         database.ref('users/' + username).set({
             email: email,
             password: password, 
             createdAt: new Date().toLocaleDateString()
         }).then(() => {
             alert(`🎉 Đăng ký thành công! Chào mừng ${username}. Hãy đăng nhập nhé!`);
-            switchAuthTab('login'); // Chuyển qua tab đăng nhập
-            
-            // Xóa rỗng các ô nhập liệu
-            document.getElementById('reg-username').value = '';
-            document.getElementById('reg-email').value = '';
-            document.getElementById('reg-pass').value = '';
-        }).catch((error) => {
-            alert("Lỗi rồi: " + error.message);
-        });
+            switchAuthTab('login');
+        }).catch((e) => alert("Lỗi: " + e.message));
     } 
     
     else if (type === 'login') {
-        const username = document.getElementById('log-username').value.trim();
+        const inputVal = document.getElementById('log-username').value.trim();
         const password = document.getElementById('log-pass').value.trim();
 
-        if (!username || !password) {
+        if (!inputVal || !password) {
             alert("Vui lòng nhập tài khoản và mật khẩu!");
             return;
         }
 
-        // Tìm user trong Firebase
-        database.ref('users/' + username).once('value').then((snapshot) => {
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                if (userData.password === password) {
-                    closeAuthModal(); // Đóng form
-                    
-                    // Hiện thông báo (nếu ông có hàm showFooterInfo ở file index)
-                    if(typeof showFooterInfo === 'function') {
-                        showFooterInfo('Thành công', `Chào mừng ${username} trở lại Kun Game Center! 😎`);
-                    } else {
-                        alert(`Chào mừng ${username} trở lại!`);
-                    }
-                    
-                    // Cập nhật giao diện: Đổi chữ "Đăng nhập" thành tên User
-                    const loginBtn = document.querySelector('.login-btn');
-                    if (loginBtn) loginBtn.innerText = username;
-                    
-                } else {
-                    alert("Sai mật khẩu rồi bạn ơi!");
+        const isEmail = inputVal.includes('@');
+        
+        database.ref('users').once('value').then((snapshot) => {
+            let userFound = null;
+            snapshot.forEach((child) => {
+                const data = child.val();
+                if (isEmail ? data.email === inputVal : child.key === inputVal) {
+                    userFound = { username: child.key, ...data };
                 }
-            } else {
-                alert("Tài khoản này chưa được đăng ký!");
-            }
-        }).catch((error) => {
-            alert("Lỗi kết nối: " + error.message);
+            });
+
+            if (userFound) {
+                if (userFound.password === password) {
+                    closeAuthModal();
+                    showFooterInfo('Thành công', `Chào mừng ${userFound.username} trở lại! 😎`);
+                    updateUIAfterLogin(userFound.username);
+                } else { alert("Sai mật khẩu rồi sếp ơi!"); }
+            } else { alert("Tài khoản không tồn tại!"); }
         });
     }
 }
 
-// Bấm ra vùng đen bên ngoài thì tự tắt form
-document.addEventListener('DOMContentLoaded', () => {
-    const authModal = document.getElementById('auth-modal');
-    if(authModal) {
-        authModal.addEventListener('click', function(e) {
-            if (e.target === this) closeAuthModal();
+// ==========================================
+// 5. ĐĂNG NHẬP BẰNG GOOGLE
+// ==========================================
+function loginWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then((result) => {
+        const user = result.user;
+        database.ref('users/' + user.uid).update({
+            displayName: user.displayName,
+            email: user.email,
+            lastLogin: new Date().toLocaleString()
         });
+        closeAuthModal();
+        showFooterInfo('Thành công', `Chào ${user.displayName}! Bạn đã đăng nhập bằng Google. 🚀`);
+        updateUIAfterLogin(user.displayName);
+    }).catch((e) => alert("Lỗi Google: " + e.message));
+}
+
+// Tự động tắt modal khi nhấn vùng ngoài
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('auth-modal');
+    if(modal) {
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeAuthModal(); });
     }
 });
