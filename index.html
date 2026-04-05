@@ -722,18 +722,45 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
                 </div>
             </div>
 
-           <div class="user-actions">
-    <div class="action-icon-btn notification-btn" onclick="showFooterInfo('Thông báo', 'Hiện tại bạn chưa có thông báo nào mới. Hãy tiếp tục chơi game để nhận phần thưởng nhé! 🎁')">
+        <div class="user-actions">
+    <div class="action-icon-btn notification-btn" onclick="toggleNotifications()" style="position: relative;">
         <i class="fas fa-bell"></i>
-        <span class="notification-badge">1</span>
+        <span class="notification-badge" id="noti-badge">1</span>
+
+        <div id="notification-dropdown" class="notification-dropdown">
+            <div class="noti-header">
+                <h4>Thông báo</h4>
+                <span class="mark-read" onclick="markAllRead(event)">Đánh dấu đã đọc</span>
+            </div>
+            <ul class="noti-list">
+                <li class="noti-item unread">
+                    <div class="noti-icon"><i class="fas fa-gift"></i></div>
+                    <div class="noti-content">
+                        <p><strong>Quà tặng tân thủ!</strong> Chào mừng bạn đến với Kun Game. Nhận ngay x2 EXP trong 24h tới.</p>
+                        <span class="noti-time">Vừa xong</span>
+                    </div>
+                </li>
+                <li class="noti-item">
+                    <div class="noti-icon" style="background: var(--warning-100);"><i class="fas fa-star"></i></div>
+                    <div class="noti-content">
+                        <p>Hệ thống vừa cập nhật thêm 17 tựa game mới. Khám phá ngay!</p>
+                        <span class="noti-time">2 giờ trước</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    
+
     <div class="action-icon-btn" onclick="showFooterInfo('Game Yêu Thích', 'Tính năng lưu game yêu thích đang được phát triển. Bạn hãy đăng nhập để sử dụng tính năng này trong thời gian tới nhé! ❤️')">
         <i class="fas fa-heart"></i>
     </div>
-    
-          <button class="login-btn animated-green-gradient" onclick="openAuthModal()">Đăng nhập / Đăng ký</button>
-            </div>
+
+    <button id="top-login-btn" class="login-btn animated-green-gradient" onclick="openAuthModal()">Đăng nhập / Đăng ký</button>
+
+    <div id="top-user-avatar" class="action-icon-btn user-avatar-btn" style="display: none;" onclick="openProfileSidebar()">
+        <img id="top-avatar-img" src="https://picsum.photos/40/40?random=1" alt="Avatar">
+    </div>
+</div>
         </header>
 
         <section id="home-section">
