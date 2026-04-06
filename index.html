@@ -7,6 +7,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+
+        /* CSS cho Dropdown Thông Báo */
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: -10px;
+    width: 320px;
+    background: var(--black-80);
+    border: 1px solid var(--black-60);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+    padding: 0;
+    font-family: var(--font-nunito);
+    text-align: left;
+}
+.notification-dropdown.show { display: block; }
+.noti-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--black-60); }
+.noti-header h4 { margin: 0; font-size: 16px; color: var(--white-100); }
+.mark-read { font-size: 12px; color: var(--brand-100); cursor: pointer; transition: 0.2s; }
+.mark-read:hover { color: var(--white-100); }
+.noti-list { list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto; }
+.noti-item { display: flex; gap: 12px; padding: 15px; border-bottom: 1px solid var(--black-60); }
+.noti-item.unread { background: rgba(104, 66, 255, 0.1); }
+.noti-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; background: var(--brand-100); flex-shrink: 0; }
+.noti-content p { margin: 0 0 5px 0; font-size: 13px; color: var(--white-100); line-height: 1.4; }
+.noti-time { font-size: 11px; color: var(--white-50); }
+        
         /* ==========================================================================
            1. HỆ THỐNG BIẾN MÀU & FONT NUNITO TỪ CRAZYGAMES
            ========================================================================== */
@@ -1394,6 +1423,29 @@ h2 { font-size: 24px; margin-bottom: 15px; font-weight: 900; color: var(--white-
 </script>
 
                     <script>
+                        // Hàm hiển thị Dropdown Thông Báo
+function toggleNotifications() {
+    document.getElementById('notification-dropdown').classList.toggle('show');
+}
+
+// Hàm đánh dấu đã đọc thông báo
+function markAllRead(event) {
+    event.stopPropagation(); // Tránh click làm đóng luôn menu
+    document.querySelectorAll('.noti-item.unread').forEach(item => {
+        item.classList.remove('unread');
+    });
+    const badge = document.getElementById('noti-badge');
+    if(badge) badge.style.display = 'none';
+}
+
+// Đóng dropdown khi click ra khoảng trống bên ngoài
+window.addEventListener('click', (e) => {
+    if (!e.target.closest('.notification-btn')) {
+        const dropdown = document.getElementById('notification-dropdown');
+        if (dropdown && dropdown.classList.contains('show')) dropdown.classList.remove('show');
+    }
+});
+                        
 document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.menu-list li');
     const gameCards = document.querySelectorAll('.hero-card');
@@ -1687,7 +1739,8 @@ function changeUserPassword() {
         .then(() => {
             alert("✅ Đã đổi mật khẩu thành công!");
             document.getElementById('new-password').value = "";
-            document.getElementById('profile-modal').classList.remove('show');
+            // SỬA DÒNG BÊN DƯỚI LẠI THÀNH THẾ NÀY:
+            closeProfileSidebar(); 
         });
     }
 }
